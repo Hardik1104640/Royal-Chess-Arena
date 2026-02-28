@@ -1,0 +1,215 @@
+/* welcome.css — styles for the simplified play section only.
+   home.css handles sidebar, topbar, avatar, status messages, modal. */
+
+/* ── Page wrapper ── */
+.page-content {
+  padding: 24px 28px;
+  max-width: 960px;
+}
+
+/* ── Section title ── */
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 16px 0;
+}
+
+/* ════════════════════════════════════════
+   PLAY CARDS
+════════════════════════════════════════ */
+.play-section {
+  margin-bottom: 32px;
+}
+
+.play-cards {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Base card */
+.play-card {
+  flex: 1;
+  min-width: 180px;
+  max-width: 280px;
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--card);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  cursor: pointer;
+}
+
+.play-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+  border-color: rgba(108,108,255,0.28);
+}
+
+/* Light mode borders */
+html.light-ui .play-card {
+  border-color: rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+html.light-ui .play-card:hover {
+  border-color: rgba(79,70,229,0.3);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+}
+
+/* ── Mini board preview area ── */
+.card-board {
+  position: relative;
+  height: 150px;
+  overflow: hidden;
+}
+
+/* Checkerboard pattern drawn with CSS gradient */
+.mini-board {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-conic-gradient(rgba(255,255,255,0.04) 0% 25%, transparent 0% 50%);
+  background-size: 30px 30px;
+}
+
+/* Each card gets its own accent gradient on the board */
+.play-online .card-board {
+  background: linear-gradient(135deg, #1a1f3a 0%, #111530 100%);
+}
+.play-bot .card-board {
+  background: linear-gradient(135deg, #1a2a1a 0%, #111c11 100%);
+}
+.play-pass .card-board {
+  background: linear-gradient(135deg, #2a1a1a 0%, #1c1111 100%);
+}
+
+html.light-ui .play-online .card-board { background: linear-gradient(135deg, #e8eaf8, #d4d8f5); }
+html.light-ui .play-bot .card-board    { background: linear-gradient(135deg, #e8f5ea, #d4f0d8); }
+html.light-ui .play-pass .card-board   { background: linear-gradient(135deg, #f5e8e8, #f0d8d8); }
+
+/* ── Chess piece images ── */
+.piece {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.55));
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Play Online piece positions */
+.play-online .piece-wk { bottom: 18px; left:  22px; }
+.play-online .piece-bk { top:   14px; right: 22px; }
+.play-online .piece-wq { bottom: 22px; left:  60px; width: 38px; height: 38px; opacity: 0.9; }
+.play-online .piece-bq { top:   18px; right: 60px; width: 38px; height: 38px; opacity: 0.9; }
+.play-online .piece-wp { bottom: 32px; left:  98px; width: 30px; height: 30px; opacity: 0.7; }
+.play-online .piece-bp { top:   30px; right: 98px; width: 30px; height: 30px; opacity: 0.7; }
+
+/* Play Bot piece positions */
+.play-bot .piece-wk { bottom: 18px; left:  24px; }
+.play-bot .piece-bk { top:   14px; right: 24px; }
+.play-bot .piece-wr { bottom: 24px; left:  64px; width: 36px; height: 36px; opacity: 0.85; }
+.play-bot .piece-bn { top:   18px; right: 64px; width: 36px; height: 36px; opacity: 0.85; }
+.play-bot .piece-wb { bottom: 34px; right: 55px; width: 30px; height: 30px; opacity: 0.65; }
+.play-bot .piece-bb { top:   34px; left:  55px; width: 30px; height: 30px; opacity: 0.65; }
+
+/* Pass & Play piece positions */
+.play-pass .piece-wk { bottom: 18px; left:  24px; }
+.play-pass .piece-bk { top:   14px; right: 24px; transform: scaleX(-1); }
+.play-pass .piece-wn { bottom: 26px; left:  68px; width: 36px; height: 36px; opacity: 0.85; }
+.play-pass .piece-br { top:   22px; right: 68px; width: 34px; height: 34px; opacity: 0.85; }
+
+/* ── Card label area ── */
+.card-info {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.card-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.card-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Accent bar at bottom of card on hover */
+.play-card::after {
+  content: '';
+  display: block;
+  height: 3px;
+  border-radius: 0 0 14px 14px;
+  transition: opacity 0.2s;
+  opacity: 0;
+}
+.play-online::after { background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+.play-bot::after    { background: linear-gradient(90deg, #3ecf8e, #2bb5ff); }
+.play-pass::after   { background: linear-gradient(90deg, #f5c842, #f5784a); }
+
+.play-card:hover::after { opacity: 1; }
+
+/* ════════════════════════════════════════
+   STATS ROW
+════════════════════════════════════════ */
+.stats-section {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  flex: 1;
+  min-width: 100px;
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 10px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+html.light-ui .stat-box {
+  border-color: rgba(0,0,0,0.07);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.stat-val {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent-2);
+}
+
+.stat-lbl {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════ */
+@media (max-width: 720px) {
+  .page-content { padding: 16px; }
+  .play-cards   { flex-direction: column; }
+  .play-card    { max-width: 100%; }
+  .stats-section{ flex-wrap: wrap; }
+  .stat-box     { min-width: 40%; }
+}
+
+@media (max-width: 400px) {
+  .stat-box { min-width: 100%; }
+}
