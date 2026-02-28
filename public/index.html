@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Royal Chess Arena — Master the Game of Kings</title>
+    <meta name="description" content="Royal Chess Arena — Experience chess like never before with multiple variants, AI bots, and comprehensive training systems." />
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="light-theme">
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="#" aria-label="Royal Chess Arena home">
+                <i class="fas fa-chess-king fa-2x"></i>
+                <span class="brand-text">Royal Chess Arena</span>
+            </a>
+
+            <nav class="nav" aria-label="Main navigation">
+                <button class="mobile-menu-btn" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-list">
+                    <li><a href="#play"><i class="fas fa-chess-board"></i> Play</a></li>
+                    <li><a href="#variants"><i class="fas fa-chess"></i> Variants</a></li>
+                    <li><a href="#training"><i class="fas fa-graduation-cap"></i> Training</a></li>
+                    <li><a href="#membership"><i class="fas fa-crown"></i> Membership</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <button id="theme-toggle" class="btn small">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="login.html" class="btn primary">Sign In</a>
+                <a href="signup.html" class="btn secondary">Join Free</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero container">
+            <div class="hero-content">
+                <!-- Decorative mini chessboard (static) -->
+                <div class="mini-board-wrap">
+                <div class="mini-board" aria-hidden="true">
+                    <!-- Rank 8 -->
+                    <div class="square dark" data-piece="bR"></div>
+                    <div class="square light" data-piece="bN"></div>
+                    <div class="square dark" data-piece="bB"></div>
+                    <div class="square light" data-piece="bQ"></div>
+                    <div class="square dark" data-piece="bK"></div>
+                    <div class="square light" data-piece="bB"></div>
+                    <div class="square dark" data-piece="bN"></div>
+                    <div class="square light" data-piece="bR"></div>
+                    <!-- Rank 7 -->
+                    <div class="square light" data-piece="bP"></div>
+                    <div class="square dark" data-piece="bP"></div>
+                    <div class="square light" data-piece="bP"></div>
+                    <div class="square dark" data-piece="bP"></div>
+                    <div class="square light" data-piece="bP"></div>
+                    <div class="square dark" data-piece="bP"></div>
+                    <div class="square light" data-piece="bP"></div>
+                    <div class="square dark" data-piece="bP"></div>
+                    <!-- Ranks 6-3 empty -->
+                    <!-- Rank 6 -->
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <!-- Rank 5 -->
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <!-- Rank 4 -->
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <!-- Rank 3 -->
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <!-- Rank 2 -->
+                    <div class="square dark" data-piece="wP"></div>
+                    <div class="square light" data-piece="wP"></div>
+                    <div class="square dark" data-piece="wP"></div>
+                    <div class="square light" data-piece="wP"></div>
+                    <div class="square dark" data-piece="wP"></div>
+                    <div class="square light" data-piece="wP"></div>
+                    <div class="square dark" data-piece="wP"></div>
+                    <div class="square light" data-piece="wP"></div>
+                    <!-- Rank 1 -->
+                    <div class="square light" data-piece="wR"></div>
+                    <div class="square dark" data-piece="wN"></div>
+                    <div class="square light" data-piece="wB"></div>
+                    <div class="square dark" data-piece="wQ"></div>
+                    <div class="square light" data-piece="wK"></div>
+                    <div class="square dark" data-piece="wB"></div>
+                    <div class="square light" data-piece="wN"></div>
+                    <div class="square dark" data-piece="wR"></div>
+                </div>
+                </div>
+                <h1>Welcome to Royal Chess Arena</h1>
+                <p class="hero-subtitle">Experience chess in its most diverse and engaging form</p>
+                <div class="hero-ctas">
+                    <a href="signup.html" class="btn primary">Play Free Now</a>
+                    <a href="#features" class="btn secondary">Explore Features</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features-section container">
+            <h2>Discover Our Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-chess-board feature-icon"></i>
+                    <h3>Multiple Chess Variants</h3>
+                    <p>Experience classic chess, 4-player chess, Fischer random, and more exciting variants.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-robot feature-icon"></i>
+                    <h3>Advanced AI Bots</h3>
+                    <p>Practice with our intelligent bots ranging from beginner to grandmaster levels.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-brain feature-icon"></i>
+                    <h3>Training System</h3>
+                    <p>Improve your game with tactical puzzles, opening trainers, and endgame studies.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users feature-icon"></i>
+                    <h3>Global Community</h3>
+                    <p>Join millions of players worldwide in tournaments and daily competitions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Membership Plans -->
+        <section id="membership" class="membership-section container">
+            <h2>Choose Your Membership</h2>
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>Free</h3>
+                        <p class="price">$0</p>
+                        <p class="period">Forever</p>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Unlimited Classic Chess</li>
+                        <li><i class="fas fa-check"></i> Basic Puzzles</li>
+                        <li><i class="fas fa-check"></i> 15 AI Bot Levels</li>
+                        <li><i class="fas fa-check"></i> Basic Opening Explorer</li>
+                    </ul>
+                    <a href="signup.html" class="btn secondary">Get Started</a>
+                </div>
+
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>Basic</h3>
+                        <p class="price">$5</p>
+                        <p class="period">per year</p>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> All Free Features</li>
+                        <li><i class="fas fa-check"></i> 4-Player Chess</li>
+                        <li><i class="fas fa-check"></i> 10 Additional Bot Levels</li>
+                        <li><i class="fas fa-check"></i> Advanced Puzzles</li>
+                    </ul>
+                    <a href="signup.html" class="btn secondary">Choose Basic</a>
+                </div>
+
+                <div class="plan-card featured">
+                    <div class="plan-header">
+                        <h3>Advanced</h3>
+                        <p class="price">$20</p>
+                        <p class="period">per year</p>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> All Basic Features</li>
+                        <li><i class="fas fa-check"></i> All Chess Variants</li>
+                        <li><i class="fas fa-check"></i> Personal Game Analysis</li>
+                        <li><i class="fas fa-check"></i> Premium Opening Database</li>
+                    </ul>
+                    <a href="signup.html" class="btn primary">Choose Advanced</a>
+                </div>
+
+                <div class="plan-card" id="prenium">
+                    <div class="plan-header">
+                        <h3>Premium</h3>
+                        <p class="price">$50</p>
+                        <p class="period">per year</p>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> All Advanced Features</li>
+                        <li><i class="fas fa-check"></i> Private Coaching</li>
+                        <li><i class="fas fa-check"></i> Tournament Priority</li>
+                        <li><i class="fas fa-check"></i> Custom Training Plans</li>
+                    </ul>
+                    <a href="signup.html" class="btn secondary">Choose Premium</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chess Variants Section -->
+        <section id="variants" class="variants-section container">
+            <h2>Explore Chess Variants</h2>
+            <div class="variants-grid">
+                <div class="variant-card">
+                    <img src="./images/classic-chess.jpg" alt="Classic Chess">
+                    <h3>Classic Chess</h3>
+                    <p>The traditional game of kings</p>
+                </div>
+                <div class="variant-card">
+                    <img src="./images/4-player-chess.jpg" alt="4 Player Chess">
+                    <h3>4 Player Chess</h3>
+                    <p>Strategic alliances and complex gameplay</p>
+                </div>
+                <!-- Add more variants as needed -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <i class="fas fa-chess-king"></i>
+                <span>Royal Chess Arena</span>
+            </div>
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h4>Play</h4>
+                    <ul>
+                        <li><a href="#play">Play Online</a></li>
+                        <li><a href="#computer">Computer</a></li>
+                        <li><a href="#tournaments">Tournaments</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Learn</h4>
+                    <ul>
+                        <li><a href="#puzzles">Puzzles</a></li>
+                        <li><a href="#openings">Opening Explorer</a></li>
+                        <li><a href="#analysis">Game Analysis</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <ul>
+                        <li><a href="#forums">Forums</a></li>
+                        <li><a href="#blogs">Chess Blogs</a></li>
+                        <li><a href="#players">Players</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© <span id="year"></span> Royal Chess Arena. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="./js/mini-board.js" defer></script>
+    <script src="./js/main.js" defer></script>
+</body>
+</html>

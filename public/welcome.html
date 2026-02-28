@@ -1,0 +1,159 @@
+<!-- public/welcome.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Welcome — Royal Chess Arena</title>
+  <link rel="stylesheet" href="./css/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+  <div class="brand">
+        <span>Royal Chess Arena</span>
+      </div>
+
+      <div class="user-block">
+        <div id="sidebar-avatar" class="avatar small">&nbsp;</div>
+        <div class="user-info">
+          <div id="sidebar-name" class="user-name">Player</div>
+          <div id="sidebar-status" class="user-status">Beginner</div>
+          <!-- user-stats: keep DOM present (hidden by CSS) so scripts that expect these IDs won't error -->
+          <div class="user-stats" aria-hidden="true">
+            <div class="user-rating">Rating: <span id="sidebar-rating">1200</span></div>
+            <div class="games-stats">Games: <span id="sidebar-games">0</span></div>
+          </div>
+          <div class="user-stars">
+            <div class="stars hidden" id="sidebar-stars">
+              <span class="star" data-index="0"></span>
+              <span class="star" data-index="1"></span>
+              <span class="star" data-index="2"></span>
+              <span class="star" data-index="3"></span>
+              <span class="star" data-index="4"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="./welcome.html" class="nav-item active"><i class="fas fa-home"></i> Home</a>
+        <a href="./sidebar/html/play.html" class="nav-item"><i class="fas fa-chess"></i> Play</a>
+        <a href="./sidebar/html/puzzles.html" class="nav-item"><i class="fas fa-puzzle-piece"></i> Puzzles</a>
+        <a href="#" class="nav-item"><i class="fas fa-book-open"></i> Learn</a>
+        <a href="#" class="nav-item"><i class="fas fa-tv"></i> Watch</a>
+        <a href="#" class="nav-item"><i class="fas fa-newspaper"></i> News</a>
+        <a href="#" class="nav-item"><i class="fas fa-users"></i> Social</a>
+        <a href="#" class="nav-item"><i class="fas fa-ellipsis-h"></i> More</a>
+        <a href="#" class="nav-item highlight"><i class="fas fa-gem"></i>Memberships</a>
+      </nav>
+
+      <div class="sidebar-search">
+        <input type="search" placeholder="Search" aria-label="Search" />
+      </div>
+
+  <div class="sidebar-bottom">
+    <a href="#" id="theme-toggle" class="nav-item small"><i class="fas fa-adjust"></i> Light UI</a>
+    <a href="#" id="sidebar-collapse" class="nav-item small"><i class="fas fa-compress"></i> Collapse</a>
+    <a href="/settings" class="nav-item small"><i class="fas fa-cog"></i> Settings</a>
+    <a href="/support" class="nav-item small"><i class="fas fa-life-ring"></i> Support</a>
+    <div class="separator"></div>
+    <a href="/logout?returnTo=/sidebar/html/play.html" class="nav-item small logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+  </div>
+    
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+  <div class="site-title">Royal Chess Arena</div>
+        <div class="user-area" id="user-area">
+          <div id="user-avatar" class="avatar">&nbsp;</div>
+          <div id="user-name" class="user-name">&nbsp;</div>
+          <a id="top-logout" class="btn logout-top" href="#">Log Out</a>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-banner">Play, Learn and Improve Your Game</div>
+      </section>
+
+      <section class="content">
+        <div class="stats-row">
+          <div class="stat card">Games Played<br><span id="games-played" class="stat-value">0</span></div>
+          <div class="stat card stat-rating">Rating<br><span id="rating-value" class="stat-value">1200</span></div>
+          <div class="stat card">Puzzles Solved<br><span id="puzzles-solved" class="stat-value">0</span></div>
+          <div class="stat card">Win Rate<br><span id="win-rate" class="stat-value">0%</span></div>
+        </div>
+
+        <div class="game-options">
+          <div class="option-section">
+            <h3>Quick Play</h3>
+            <div class="tiles vertical">
+              <div class="tile card preferred-time">
+                <i class="fas fa-clock"></i>
+                <span class="time-label">Play 10 min</span>
+                <span class="preferred-label">Your preferred time control</span>
+              </div>
+              <div class="tile card">
+                <i class="fas fa-random"></i>
+                <span>New Game</span>
+                <span class="subtitle">Random opponent</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="option-section">
+            <h3>Practice</h3>
+            <div class="tiles vertical">
+              <div class="tile card">
+                <i class="fas fa-robot"></i>
+                <span>Play Bots</span>
+                <span class="subtitle">Train against AI</span>
+              </div>
+              <div class="tile card">
+                <i class="fas fa-user-friends"></i>
+                <span>Play a Friend</span>
+                <span class="subtitle">Challenge someone you know</span>
+              </div>
+              <div class="tile card">
+                <i class="fas fa-puzzle-piece"></i>
+                <span>Daily Puzzles</span>
+                <span class="subtitle">Improve your tactics</span>
+              </div>
+              <div class="tile card">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Learn</span>
+                <span class="subtitle">Lessons and tutorials</span>
+              </div>
+            </div>
+          </div>
+
+  <div id="status-placeholder" aria-live="polite"></div>
+  <div id="user-welcome" class="user-welcome"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Device Conflict Modal -->
+  <div id="logout-request-modal" class="logout-request-modal hidden">
+    <div class="logout-request-content">
+      <div class="logout-request-header">
+        <i class="fas fa-exclamation-circle"></i>
+        <h2>Device Login Request</h2>
+      </div>
+      <div class="logout-request-body">
+        <p id="logout-request-message">Someone is trying to login with a different account from this device.</p>
+        <p class="logout-request-details">Do you want to accept this request and logout from your account?</p>
+      </div>
+      <div class="logout-request-actions">
+        <button id="logout-accept-btn" class="btn btn-danger">Accept & Logout</button>
+        <button id="logout-reject-btn" class="btn btn-secondary">Reject</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/home.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js" defer></script>
+</body>
+</html>

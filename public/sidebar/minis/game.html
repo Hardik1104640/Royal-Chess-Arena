@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini Play — Royal Chess Arena</title>
+  <link rel="stylesheet" href="../../css/home.css">
+  <link rel="stylesheet" href="./mini.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="mini-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span>Royal Chess Arena</span>
+      </div>
+
+      <div class="user-block">
+        <div id="sidebar-avatar" class="avatar small">&nbsp;</div>
+        <div class="user-info">
+          <div id="sidebar-name" class="user-name">Player</div>
+          <div id="sidebar-status" class="user-status">Beginner</div>
+          <div class="user-stars">
+            <div class="stars hidden" id="sidebar-stars">
+              <span class="star" data-index="0"></span>
+              <span class="star" data-index="1"></span>
+              <span class="star" data-index="2"></span>
+              <span class="star" data-index="3"></span>
+              <span class="star" data-index="4"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <nav class="nav">
+        <a href="../../welcome.html" class="nav-item active"><i class="fas fa-home"></i> Home</a>
+        <a href="../html/play.html" class="nav-item"><i class="fas fa-chess"></i> Play</a>
+        <a href="#" class="nav-item"><i class="fas fa-puzzle-piece"></i> Puzzles</a>
+        <a href="#" class="nav-item"><i class="fas fa-book-open"></i> Learn</a>
+        <a href="#" class="nav-item"><i class="fas fa-tv"></i> Watch</a>
+        <a href="#" class="nav-item"><i class="fas fa-newspaper"></i> News</a>
+        <a href="#" class="nav-item"><i class="fas fa-users"></i> Social</a>
+        <a href="#" class="nav-item"><i class="fas fa-ellipsis-h"></i> More</a>
+        <a href="#" class="nav-item highlight"><i class="fas fa-gem"></i>Memberships</a>
+      </nav>
+
+      <div class="sidebar-search">
+        <input type="search" placeholder="Search" aria-label="Search" />
+      </div>
+
+      <div class="sidebar-bottom">
+        <a href="#" id="theme-toggle" class="nav-item small"><i class="fas fa-adjust"></i> Light UI</a>
+        <a href="#" id="sidebar-collapse" class="nav-item small"><i class="fas fa-compress"></i> Collapse</a>
+        <a href="/settings" class="nav-item small"><i class="fas fa-cog"></i> Settings</a>
+        <a href="/support" class="nav-item small"><i class="fas fa-life-ring"></i> Support</a>
+        <div class="separator"></div>
+        <a href="#" class="nav-item small logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+      </div>
+    </aside>
+
+    <main class="mini-main">
+      <header class="topbar">
+        <div class="site-title">Mini Game</div>
+        <div class="user-area" id="user-area">
+          <div id="user-avatar" class="avatar">&nbsp;</div>
+          <div id="user-name" class="user-name">&nbsp;</div>
+        </div>
+      </header>
+
+      <section class="display-board-wrap" id="display-container">
+        <div class="display-chessboard" id="display-chessboard" aria-label="Display chess board">
+          <!-- squares injected by mini.js -->
+        </div>
+      </section>
+
+      <section class="mini-board-wrap" id="board-container" style="display:none;">
+        <div class="mini-chessboard" id="mini-chessboard" aria-label="Mini chess board">
+          <!-- squares injected by mini.js -->
+        </div>
+        <div class="moves-panel" id="moves-panel">
+          <h3>Moves</h3>
+          <div class="moves-list" id="moves-list"></div>
+        </div>
+      </section>
+
+      <div id="mini-status" class="status-message" style="margin-top:12px;display:none"></div>
+
+      <!-- Pawn promotion dialog -->
+      <div id="promotion-dialog" class="promotion-dialog" style="display:none">
+        <div class="promotion-menu">
+          <div class="promotion-title">Choose promotion piece</div>
+          <div class="promotion-pieces">
+            <div class="promotion-piece" data-piece="q">
+              <img src="../../Images/Chesspieces/wQ.png" alt="Queen">
+              <div class="piece-label">Queen</div>
+            </div>
+            <div class="promotion-piece" data-piece="r">
+              <img src="../../Images/Chesspieces/wR.png" alt="Rook">
+              <div class="piece-label">Rook</div>
+            </div>
+            <div class="promotion-piece" data-piece="b">
+              <img src="../../Images/Chesspieces/wB.png" alt="Bishop">
+              <div class="piece-label">Bishop</div>
+            </div>
+            <div class="promotion-piece" data-piece="n">
+              <img src="../../Images/Chesspieces/wN.png" alt="Knight">
+              <div class="piece-label">Knight</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="mini-controls">
+        <div class="time-control-section">
+          <div class="control-row">
+            <label>Time Control</label>
+            <div class="time-categories">
+              <div class="category bullet-category">
+                <div class="category-title">Bullet</div>
+                <div class="time-options">
+                  <button class="time-btn" data-time="1 min">1 min</button>
+                  <button class="time-btn" data-time="1|1">1|1</button>
+                  <button class="time-btn" data-time="2|1">2|1</button>
+                </div>
+              </div>
+              <div class="category blitz-category">
+                <div class="category-title">Blitz</div>
+                <div class="time-options">
+                  <button class="time-btn" data-time="3 min">3 min</button>
+                  <button class="time-btn" data-time="3|2">3|2</button>
+                  <button class="time-btn" data-time="5 min">5 min</button>
+                </div>
+              </div>
+              <div class="category rapid-category">
+                <div class="category-title">Rapid</div>
+                <div class="time-options">
+                  <button class="time-btn preferred-time" data-time="10 min">10 min</button>
+                  <button class="time-btn" data-time="15|10">15|10</button>
+                  <button class="time-btn" data-time="30 min">30 min</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="actions">
+          <button id="mini-start" class="btn">Start Game</button>
+        </div>
+        <div id="mini-status" class="status-message" style="display:none"></div>
+      </section>
+
+      <div class="game-actions" id="game-actions" style="display:none;margin-top:8px;">
+        <button id="resign-btn" class="btn btn-danger">Resign</button>
+        <button id="offer-draw-btn" class="btn btn-secondary">Offer Draw</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/home.js" defer></script>
+  <script type="module" src="./chess-init.js"></script>
+  <script src="./mini.js" defer></script>
+</body>
+</html>

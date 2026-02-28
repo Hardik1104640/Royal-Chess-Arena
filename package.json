@@ -1,0 +1,20 @@
+{
+  "name": "chess-auth-prototype",
+  "version": "1.0.0",
+  "description": "Prototype auth: signup + login with browser save prompt + credential API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "chess.js": "^1.4.0",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "helmet": "^7.0.0",
+    "sqlite3": "^5.1.7",
+    "ws": "^8.13.0"
+  }
+}

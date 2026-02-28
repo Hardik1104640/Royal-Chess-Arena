@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sign up — Chessboard Arena</title>
+    <link rel="stylesheet" href="./css/styles-sign_up.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-container">
+        <main class="auth-form">
+            <h1><i class="fas fa-chess"></i> Create Account</h1>
+            <!-- Status message area -->
+            <div id="status-message" class="status-message"></div>
+
+            <form id="signup-form" autocomplete="on">
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-envelope"></i> Email
+                        <input name="email" type="email" required autocomplete="username" placeholder="Enter your email" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-user"></i> Display name
+                        <input 
+                            name="display_name" 
+                            type="text" 
+                            id="display-name"
+                            pattern="[A-Za-z0-9_-]+" 
+                            title="Display name cannot contain spaces. Use letters, numbers, underscores or hyphens."
+                            autocomplete="name" 
+                            placeholder="Choose a display name (no spaces allowed)" 
+                            required
+                        />
+                    </label>
+                    <span class="display-name-hint">Only letters, numbers, underscores and hyphens allowed</span>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-lock"></i> Password
+                        <input id="signup-password" name="password" type="password" required autocomplete="new-password" placeholder="Create a password" />
+                        <span class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </label>
+                    <div class="password-strength">
+                        <div class="strength-meter"></div>
+                        <span class="strength-text"></span>
+                    </div>
+                </div>
+
+                <!-- Social login divider -->
+                <div class="social-divider">
+                    <span>or sign up with</span>
+                </div>
+
+                <!-- Social login buttons -->
+                <div class="social-login">
+                    <button type="button" class="btn social google">
+                        <img src="/images/google.svg" alt="Google logo" class="google-icon"> Google
+                    </button>
+                    <button type="button" class="btn social github">
+                        <i class="fab fa-github"></i> GitHub
+                    </button>
+                </div>
+
+                <div class="actions">
+                    <button class="btn primary" type="submit">
+                        <i class="fas fa-user-plus"></i> Sign up with Email
+                    </button>
+                    <a class="btn secondary" href="login.html">
+                        <i class="fas fa-sign-in-alt"></i> Already have an account?
+                    </a>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script src="./js/cred.js" defer></script>
+</body>
+</html>

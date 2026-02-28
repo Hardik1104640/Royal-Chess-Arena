@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Chess Arena - Puzzles</title>
+    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../css/puzzles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <!-- Chess.js for puzzle logic -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.1/chess.min.js"></script>
+</head>
+<body>
+    <aside class="sidebar fixed-sidebar">
+        <div class="brand">
+            <span>Royal Chess Arena</span>
+        </div>
+
+        <div class="user-block">
+            <div id="sidebar-avatar" class="avatar small">&nbsp;</div>
+            <div class="user-info">
+                <div id="sidebar-name" class="user-name">Player</div>
+                <div id="sidebar-status" class="user-status">Beginner</div>
+                <div class="user-stats" aria-hidden="true">
+                    <div class="user-rating">Rating: <span id="sidebar-rating">1200</span></div>
+                    <div class="games-stats">Games: <span id="sidebar-games">0</span></div>
+                </div>
+                <div class="user-stars">
+                    <div class="stars hidden" id="sidebar-stars">
+                        <span class="star" data-index="0"></span>
+                        <span class="star" data-index="1"></span>
+                        <span class="star" data-index="2"></span>
+                        <span class="star" data-index="3"></span>
+                        <span class="star" data-index="4"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a href="../../welcome.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+            <a href="./play.html" class="nav-item"><i class="fas fa-chess"></i> Play</a>
+            <a href="puzzles.html" class="nav-item active"><i class="fas fa-puzzle-piece"></i> Puzzles</a>
+            <a href="#" class="nav-item"><i class="fas fa-book-open"></i> Learn</a>
+            <a href="#" class="nav-item"><i class="fas fa-tv"></i> Watch</a>
+            <a href="#" class="nav-item"><i class="fas fa-newspaper"></i> News</a>
+            <a href="#" class="nav-item"><i class="fas fa-users"></i> Social</a>
+            <a href="#" class="nav-item"><i class="fas fa-ellipsis-h"></i> More</a>
+            <a href="#" class="nav-item highlight"><i class="fas fa-gem"></i>Memberships</a>
+        </nav>
+
+        <div class="sidebar-search">
+            <input type="search" placeholder="Search" aria-label="Search" />
+        </div>
+
+        <div class="sidebar-bottom">
+            <a href="#" id="theme-toggle" class="nav-item small"><i class="fas fa-adjust"></i> Light UI</a>
+            <a href="#" id="sidebar-collapse" class="nav-item small"><i class="fas fa-compress"></i> Collapse</a>
+            <a href="/settings" class="nav-item small"><i class="fas fa-cog"></i> Settings</a>
+            <a href="/support" class="nav-item small"><i class="fas fa-life-ring"></i> Support</a>
+            <div class="separator"></div>
+            <a href="/logout?returnTo=/sidebar/html/puzzles.html" class="nav-item small logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="puzzles-container">
+            <div class="puzzles-header">
+                <h1 class="page-title">
+                    <i class="fas fa-puzzle-piece"></i>
+                    Chess Puzzles
+                </h1>
+                <p class="page-subtitle">Train your tactical vision with 10,000+ puzzles</p>
+            </div>
+
+            <div class="puzzle-stats-dashboard">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #6c6cff, #3aa0ff);">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="puzzles-solved">0</div>
+                        <div class="stat-label">Puzzles Solved</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #22c55e, #10b981);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="accuracy-rate">0%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="daily-completed">0/15</div>
+                        <div class="stat-label">Puzzle Rush Today</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #ec4899, #f43f5e);">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="battle-wins">0</div>
+                        <div class="stat-label">Battle Wins</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="battle-rating">1200</div>
+                        <div class="stat-label">Battle Rating</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="battle-streak">0</div>
+                        <div class="stat-label">Battle Win Streak</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <button class="action-btn primary" id="daily-puzzle-btn">
+                    <i class="fas fa-calendar-day"></i>
+                    <div class="btn-content">
+                        <span class="btn-title">Daily Puzzle</span>
+                        <span class="btn-subtitle">New challenge every day</span>
+                    </div>
+                </button>
+                <button class="action-btn secondary" id="custom-puzzle-btn">
+                    <i class="fas fa-sliders-h"></i>
+                    <div class="btn-content">
+                        <span class="btn-title">Custom Puzzles</span>
+                        <span class="btn-subtitle">10 per day - Choose rating & theme</span>
+                    </div>
+                </button>
+                <button class="action-btn tertiary" id="puzzle-rush-btn">
+                    <i class="fas fa-bolt"></i>
+                    <div class="btn-content">
+                        <span class="btn-title">Puzzle Rush</span>
+                        <span class="btn-subtitle">15 free puzzles daily</span>
+                    </div>
+                </button>
+            </div>
+
+            <div class="puzzle-categories">
+                <div class="category-section">
+                    <div class="category-header">
+                        <h2 class="category-title">
+                            <i class="fas fa-star"></i>
+                            Themed Puzzles
+                        </h2>
+                        <p class="category-description">Master specific tactical patterns and techniques</p>
+                    </div>
+                    <div class="puzzle-themes-grid">
+                        <div class="theme-card" data-theme="mate-in-1">
+                            <div class="theme-icon"><i class="fas fa-chess-king"></i></div>
+                            <h3 class="theme-name">Mate in 1</h3>
+                            <p class="theme-count">850 puzzles</p>
+                            <div class="theme-difficulty easy">Easy</div>
+                        </div>
+                        <div class="theme-card" data-theme="mate-in-2">
+                            <div class="theme-icon"><i class="fas fa-chess-queen"></i></div>
+                            <h3 class="theme-name">Mate in 2</h3>
+                            <p class="theme-count">1,240 puzzles</p>
+                            <div class="theme-difficulty medium">Medium</div>
+                        </div>
+                        <div class="theme-card" data-theme="mate-in-3">
+                            <div class="theme-icon"><i class="fas fa-chess-rook"></i></div>
+                            <h3 class="theme-name">Mate in 3+</h3>
+                            <p class="theme-count">620 puzzles</p>
+                            <div class="theme-difficulty hard">Hard</div>
+                        </div>
+                        <div class="theme-card" data-theme="pin">
+                            <div class="theme-icon"><i class="fas fa-thumbtack"></i></div>
+                            <h3 class="theme-name">Pin</h3>
+                            <p class="theme-count">780 puzzles</p>
+                            <div class="theme-difficulty easy">Easy</div>
+                        </div>
+                        <div class="theme-card" data-theme="fork">
+                            <div class="theme-icon"><i class="fas fa-code-branch"></i></div>
+                            <h3 class="theme-name">Fork</h3>
+                            <p class="theme-count">920 puzzles</p>
+                            <div class="theme-difficulty easy">Easy</div>
+                        </div>
+                        <div class="theme-card" data-theme="skewer">
+                            <div class="theme-icon"><i class="fas fa-arrows-alt-h"></i></div>
+                            <h3 class="theme-name">Skewer</h3>
+                            <p class="theme-count">540 puzzles</p>
+                            <div class="theme-difficulty medium">Medium</div>
+                        </div>
+                        <div class="theme-card" data-theme="discovered-attack">
+                            <div class="theme-icon"><i class="fas fa-eye"></i></div>
+                            <h3 class="theme-name">Discovered Attack</h3>
+                            <p class="theme-count">680 puzzles</p>
+                            <div class="theme-difficulty medium">Medium</div>
+                        </div>
+                        <div class="theme-card" data-theme="double-attack">
+                            <div class="theme-icon"><i class="fas fa-clone"></i></div>
+                            <h3 class="theme-name">Double Attack</h3>
+                            <p class="theme-count">710 puzzles</p>
+                            <div class="theme-difficulty medium">Medium</div>
+                        </div>
+                        <div class="theme-card" data-theme="deflection">
+                            <div class="theme-icon"><i class="fas fa-share"></i></div>
+                            <h3 class="theme-name">Deflection</h3>
+                            <p class="theme-count">580 puzzles</p>
+                            <div class="theme-difficulty hard">Hard</div>
+                        </div>
+                        <div class="theme-card" data-theme="decoy">
+                            <div class="theme-icon"><i class="fas fa-magnet"></i></div>
+                            <h3 class="theme-name">Decoy</h3>
+                            <p class="theme-count">490 puzzles</p>
+                            <div class="theme-difficulty hard">Hard</div>
+                        </div>
+                        <div class="theme-card" data-theme="sacrifice">
+                            <div class="theme-icon"><i class="fas fa-gift"></i></div>
+                            <h3 class="theme-name">Sacrifice</h3>
+                            <p class="theme-count">820 puzzles</p>
+                            <div class="theme-difficulty hard">Hard</div>
+                        </div>
+                        <div class="theme-card" data-theme="endgame">
+                            <div class="theme-icon"><i class="fas fa-flag-checkered"></i></div>
+                            <h3 class="theme-name">Endgame</h3>
+                            <p class="theme-count">950 puzzles</p>
+                            <div class="theme-difficulty medium">Medium</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-section">
+                    <div class="category-header">
+                        <h2 class="category-title">
+                            <i class="fas fa-layer-group"></i>
+                            By Difficulty
+                        </h2>
+                        <p class="category-description">Choose puzzles that match your skill level</p>
+                    </div>
+                    <div class="difficulty-grid">
+                        <div class="difficulty-card easy-card" data-difficulty="easy">
+                            <div class="difficulty-header">
+                                <i class="fas fa-seedling"></i>
+                                <h3>Beginner</h3>
+                            </div>
+                            <p class="rating-range">Rating 0-1200</p>
+                            <p class="puzzle-count">2,850 puzzles</p>
+                            <button class="start-btn">Start Training</button>
+                        </div>
+                        <div class="difficulty-card medium-card" data-difficulty="medium">
+                            <div class="difficulty-header">
+                                <i class="fas fa-graduation-cap"></i>
+                                <h3>Intermediate</h3>
+                            </div>
+                            <p class="rating-range">Rating 1200-1800</p>
+                            <p class="puzzle-count">3,420 puzzles</p>
+                            <button class="start-btn">Start Training</button>
+                        </div>
+                        <div class="difficulty-card hard-card" data-difficulty="hard">
+                            <div class="difficulty-header">
+                                <i class="fas fa-chess-king"></i>
+                                <h3>Advanced</h3>
+                            </div>
+                            <p class="rating-range">Rating 1800-2400</p>
+                            <p class="puzzle-count">2,180 puzzles</p>
+                            <button class="start-btn">Start Training</button>
+                        </div>
+                        <div class="difficulty-card expert-card" data-difficulty="expert">
+                            <div class="difficulty-header">
+                                <i class="fas fa-crown"></i>
+                                <h3>Expert</h3>
+                            </div>
+                            <p class="rating-range">Rating 2400+</p>
+                            <p class="puzzle-count">1,550 puzzles</p>
+                            <button class="start-btn">Start Training</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-section">
+                    <div class="category-header">
+                        <h2 class="category-title">
+                            <i class="fas fa-gamepad"></i>
+                            Special Game Modes
+                        </h2>
+                        <p class="category-description">Unique puzzle experiences and competitive challenges</p>
+                    </div>
+                    <div class="special-modes-grid">
+                        <div class="mode-card battle-mode">
+                            <div class="mode-icon">
+                                <i class="fa-solid fa-swords"></i>
+                            </div>
+                            <h3 class="mode-name">Puzzle Battle Arena</h3>
+                            <p class="mode-description">Compete 1v1 in real-time. First to solve 5 puzzles wins. Increases battle rating!</p>
+                            <div class="mode-stats">
+                                <span><i class="fas fa-trophy"></i> Ranked battles</span>
+                                <span><i class="fas fa-chart-line"></i> Rating ±5-30</span>
+                            </div>
+                            <button class="mode-btn battle-btn">
+                                <i class="fas fa-gamepad"></i> Join Battle
+                            </button>
+                        </div>
+
+                        <div class="mode-card race-mode">
+                            <div class="mode-icon race-icon">
+                                <i class="fas fa-flag-checkered"></i>
+                            </div>
+                            <h3 class="mode-name">Puzzle Race</h3>
+                            <p class="mode-description">Race against 5 players! Each correct answer moves your car forward. First to finish line wins!</p>
+                            <div class="mode-stats">
+                                <span><i class="fas fa-users"></i> Up to 6 players</span>
+                                <span><i class="fas fa-trophy"></i> Winner takes all</span>
+                            </div>
+                            <button class="mode-btn race-btn">
+                                <i class="fas fa-car"></i> Start Racing
+                            </button>
+                        </div>
+
+                        <div class="mode-card">
+                            <div class="mode-icon survival-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h3 class="mode-name">Survival Mode</h3>
+                            <p class="mode-description">3 lives, increasing difficulty. Survive as long as possible. How many can you solve?</p>
+                            <div class="mode-stats">
+                                <span><i class="fas fa-heart"></i> 3 lives only</span>
+                                <span><i class="fas fa-chart-line"></i> Progressive difficulty</span>
+                            </div>
+                            <button class="mode-btn survival-btn">
+                                <i class="fas fa-play"></i> Start Survival
+                            </button>
+                        </div>
+
+                        <div class="mode-card">
+                            <div class="mode-icon">
+                                <i class="fas fa-stopwatch"></i>
+                            </div>
+                            <h3 class="mode-name">Time Attack</h3>
+                            <p class="mode-description">2 minutes on the clock. Solve as many puzzles as you can. Correct = +10s, Wrong = -5s</p>
+                            <div class="mode-stats">
+                                <span><i class="fas fa-clock"></i> 2:00 start time</span>
+                                <span><i class="fas fa-bolt"></i> Fast-paced</span>
+                            </div>
+                            <button class="mode-btn time-btn">
+                                <i class="fas fa-stopwatch"></i> Begin Attack
+                            </button>
+                        </div>
+
+                        <div class="mode-card">
+                            <div class="mode-icon">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                            <h3 class="mode-name">Perfect Streak</h3>
+                            <p class="mode-description">No hints, no mistakes allowed. Build the longest perfect streak. One wrong answer ends it!</p>
+                            <div class="mode-stats">
+                                <span><i class="fas fa-ban"></i> No mistakes</span>
+                                <span><i class="fas fa-medal"></i> Leaderboard</span>
+                            </div>
+                            <button class="mode-btn perfect-btn">
+                                <i class="fas fa-gem"></i> Go Perfect
+                            </button>
+                        </div>
+
+                        <div class="mode-card">
+                            <div class="mode-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="mode-name">Team Battle</h3>
+                            <p class="mode-description">Join a team of 3-5 players. Team with most points after 10 minutes wins!</p>
+                            <div class="mode-stats">
+                                <span><i class="fas fa-users"></i> 3-5 per team</span>
+                                <span><i class="fas fa-clock"></i> 10 min rounds</span>
+                            </div>
+                            <button class="mode-btn team-btn">
+                                <i class="fas fa-users"></i> Join Team
+                            </button>
+                        </div>
+
+                        <div class="mode-card premium-mode">
+                            <div class="mode-badge">
+                                <i class="fas fa-crown"></i> Premium
+                            </div>
+                            <div class="mode-icon">
+                                <i class="fas fa-eye-slash"></i>
+                            </div>
+                            <h3 class="mode-name">Blindfold Challenge</h3>
+                            <p class="mode-description">Solve puzzles without seeing the board! Positions shown only in notation. Ultimate challenge!</p>
+                            <div class="mode-stats">
+                                <span><i class="fas fa-eye-slash"></i> No visual board</span>
+                                <span><i class="fas fa-brain"></i> Mental mastery</span>
+                            </div>
+                            <button class="mode-btn premium-btn">
+                                <i class="fas fa-crown"></i> Unlock Premium
+                            </button>
+                        </div>
+
+                        <div class="mode-card">
+                            <div class="mode-icon mystery-icon">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <h3 class="mode-name">Mystery Box</h3>
+                            <p class="mode-description">Random puzzles with random themes! You never know what you'll get. Exciting surprises await!</p>
+                            <div class="mode-stats">
+                                <span><i class="fas fa-random"></i> Random themes</span>
+                                <span><i class="fas fa-surprise"></i> Any difficulty</span>
+                            </div>
+                            <button class="mode-btn mystery-btn">
+                                <i class="fas fa-gift"></i> Open Mystery Box
+                            </button>
+                        </div>
+
+                        <div class="mode-card">
+                            <div class="mode-icon boss-icon">
+                                <i class="fas fa-dragon"></i>
+                            </div>
+                            <h3 class="mode-name">Boss Battle</h3>
+                            <p class="mode-description">Face themed "bosses" with 10 related puzzles. Defeat all bosses to earn special badges!</p>
+                            <div class="mode-stats">
+                                <span><i class="fas fa-dragon"></i> 15 unique bosses</span>
+                                <span><i class="fas fa-award"></i> Exclusive badges</span>
+                            </div>
+                            <button class="mode-btn boss-btn">
+                                <i class="fas fa-dragon"></i> Challenge Boss
+                            </button>
+                        </div>
+
+                        <div class="mode-card">
+                            <div class="mode-icon">
+                                <i class="fas fa-chess-king"></i>
+                            </div>
+                            <h3 class="mode-name">Historical Battles</h3>
+                            <p class="mode-description">Solve critical positions from legendary games. Learn from the masters!</p>
+                            <div class="mode-stats">
+                                <span><i class="fas fa-history"></i> Real GM games</span>
+                                <span><i class="fas fa-star"></i> 500+ positions</span>
+                            </div>
+                            <button class="mode-btn history-btn">
+                                <i class="fas fa-play"></i> Play History
+                            </button>
+                        </div>
+
+                        <div class="mode-card">
+                            <div class="mode-icon tournament-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <h3 class="mode-name">Daily Puzzle Tournament</h3>
+                            <p class="mode-description">Compete with all players! Solve 20 puzzles. Top 100 get rewards. Resets every 24h!</p>
+                            <div class="mode-stats">
+                                <span><i class="fas fa-calendar"></i> Daily reset</span>
+                                <span><i class="fas fa-gift"></i> Top 100 rewards</span>
+                            </div>
+                            <button class="mode-btn tournament-btn">
+                                <i class="fas fa-trophy"></i> Enter Tournament
+                            </button>
+                        </div>
+
+                        <div class="mode-card">
+                            <div class="mode-icon">
+                                <i class="fas fa-flag-checkered"></i>
+                            </div>
+                            <h3 class="mode-name">Endgame Master</h3>
+                            <p class="mode-description">Focus exclusively on endgame positions. Master rook endings, pawn races, and more!</p>
+                            <div class="mode-stats">
+                                <span><i class="fas fa-chess-rook"></i> Endgame only</span>
+                                <span><i class="fas fa-graduation-cap"></i> 800+ positions</span>
+                            </div>
+                            <button class="mode-btn endgame-btn">
+                                <i class="fas fa-play"></i> Master Endgames
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="puzzle-modal" class="puzzle-modal">
+            <div class="puzzle-modal-content">
+                <div class="puzzle-modal-header">
+                    <div class="puzzle-info">
+                        <h3 id="puzzle-title">Puzzle #1234</h3>
+                        <div class="puzzle-meta">
+                            <span class="puzzle-rating"><i class="fas fa-chart-line"></i> Rating: <strong id="current-puzzle-rating">1400</strong></span>
+                            <span class="puzzle-theme"><i class="fas fa-tag"></i> <span id="current-puzzle-theme">Fork</span></span>
+                            <span class="puzzle-side"><i class="fas fa-chess"></i> <span id="puzzle-to-move">White to move</span></span>
+                        </div>
+                    </div>
+                    <button class="close-puzzle"><i class="fas fa-times"></i></button>
+                </div>
+
+                <div class="puzzle-modal-body">
+                    <div class="puzzle-board-section">
+                        <div class="puzzle-board" id="puzzle-board"></div>
+                        
+                        <div class="puzzle-controls">
+                            <button class="control-btn" id="hint-btn" title="Get a hint">
+                                <i class="fas fa-lightbulb"></i> Hint
+                            </button>
+                            <button class="control-btn" id="undo-btn" title="Undo move" disabled>
+                                <i class="fas fa-undo"></i> Undo
+                            </button>
+                            <button class="control-btn" id="show-solution-btn" title="Show solution">
+                                <i class="fas fa-eye"></i> Solution
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="puzzle-sidebar">
+                        <div class="move-list" id="move-list">
+                            <h4><i class="fas fa-list"></i> Moves</h4>
+                            <div class="moves-content" id="moves-content">
+                                <p class="no-moves">Make your first move</p>
+                            </div>
+                        </div>
+
+                        <div class="puzzle-status" id="puzzle-status">
+                            <div class="status-message thinking">
+                                <i class="fas fa-brain"></i>
+                                <p>Find the best move...</p>
+                            </div>
+                        </div>
+
+                        <div class="puzzle-actions">
+                            <button class="action-btn-full skip-btn" id="skip-puzzle-btn">
+                                <i class="fas fa-forward"></i> Skip Puzzle
+                            </button>
+                            <button class="action-btn-full next-btn hidden" id="next-puzzle-btn">
+                                <i class="fas fa-arrow-right"></i> Next Puzzle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../../js/home.js"></script>
+    <script src="../js/puzzles.js"></script>
+</body>
+</html>
