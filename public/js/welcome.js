@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Chess piece image path ──────────────────────────────────────────
   // Edit this if your images live in a different folder
-  const PIECE_IMG_PATH = 'images/chesspieces/';
+  const PIECE_IMG_PATH = '../../images/chesspieces/';
 
   // Unicode fallbacks if an image fails to load
   const PIECE_UNICODE = {
@@ -19,9 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Row 0 = rank 8 (black back rank), Row 7 = rank 1 (white back rank)
   const START_POS = [
     // rank 8  — black back rank
-    ['br','bn','bb','bq','bk','bb','bn','br'],
+    ['bR','bN','bB','bQ','bK','bB','bN','bR'],
     // rank 7  — black pawns
-    ['bp','bp','bp','bp','bp','bp','bp','bp'],
+    ['bP','bP','bP','bP','bP','bP','bP','bP'],
     // rank 6
     [null,null,null,null,null,null,null,null],
     // rank 5
@@ -31,9 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // rank 3
     [null,null,null,null,null,null,null,null],
     // rank 2  — white pawns
-    ['wp','wp','wp','wp','wp','wp','wp','wp'],
+    ['wP','wP','wP','wP','wP','wP','wP','wP'],
     // rank 1  — white back rank
-    ['wr','wn','wb','wq','wk','wb','wn','wr'],
+    ['wR','wN','wB','wQ','wK','wB','wN','wR'],
   ];
 
   // ── Build board ──────────────────────────────────────────────────────
