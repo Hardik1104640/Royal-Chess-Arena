@@ -29,6 +29,24 @@ themeBtn?.addEventListener('click', () => {
   themeBtn.setAttribute('aria-pressed', pressed ? 'true' : 'false');
 });
 
+// ===== Guest account integration =====
+// Bind continue-as-guest buttons to assign account
+document.addEventListener('DOMContentLoaded', () => {
+  const headerBtn = document.getElementById('continue-guest-header');
+  const heroBtn = document.getElementById('continue-guest-hero');
+  
+  const handler = (ev) => {
+    if(window.GuestPool){
+      GuestPool.assign();
+      // allow default navigation to welcome.html
+    }
+  };
+  
+  headerBtn?.addEventListener('click', handler);
+  heroBtn?.addEventListener('click', handler);
+});
+
+
 // Basic chess representation
 // Piece notation: {type:'p','r','n','b','q','k', color:'w'|'b'}
 function deepCloneBoard(b){ return b.map(r => r.map(c => c ? {...c} : null)); }

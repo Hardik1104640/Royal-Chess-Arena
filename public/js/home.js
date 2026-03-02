@@ -15,10 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const resolvedName = (data && (data.displayName || data.name || data.username || data.email)) ?
             (data.displayName || data.name || data.username || data.email) : 'Player';
         const name = resolvedName;
+        const isGuest = window.GuestPool && GuestPool.isGuest();
+        const welcomeText = isGuest ? `Welcome ${escapeHtml(name)}!` : `Welcome back, ${escapeHtml(name)}!`;
+        
         if (userWelcome) {
             userWelcome.innerHTML = `
             <div class="welcome-card card">
-                <h2>Welcome back, ${escapeHtml(name)}!</h2>
+                <h2>${welcomeText}</h2>
                 <p class="muted">Ready for your next challenge?</p>
                 <div class="welcome-actions">
                     <a class="btn primary" href="/sidebar/html/play.html"><i class="fas fa-play"></i> Play Now</a>
@@ -262,6 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (logoutLink) {
         logoutLink.addEventListener('click', (e) => {
             e.preventDefault();
+            // Release guest account if active
+            if(window.GuestPool) GuestPool.releaseCurrentAndClear();
             const returnTo = window.location.pathname || '/index.html';
             window.location.href = '/logout?returnTo=' + encodeURIComponent(returnTo);
         });
@@ -272,6 +277,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (topLogout) {
         topLogout.addEventListener('click', (e) => {
             e.preventDefault();
+            // Release guest account if active
+            if(window.GuestPool) GuestPool.releaseCurrentAndClear();
             const returnTo = window.location.pathname || '/index.html';
             window.location.href = '/logout?returnTo=' + encodeURIComponent(returnTo);
         });
@@ -335,6 +342,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Start attempts
-    setTimeout(tryWhoami, 300);
+    // Check if guest account is active; if so, load profile directly
+    setTimeout(() => {
+        if(window.GuestPool && GuestPool.isGuest()) {
+            try {
+                const profile = JSON.parse(localStorage.getItem('userProfile') || 'null');
+                if(profile && profile.guest) {
+                    renderUser(profile);
+                    return;
+                }
+            } catch(e) {}
+        }
+        // If not guest, check regular server session
+        tryWhoami();
+    }, 300);
 });
