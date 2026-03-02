@@ -1,159 +1,234 @@
-<!-- public/welcome.html -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Welcome — Royal Chess Arena</title>
-  <link rel="stylesheet" href="./css/home.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/welcome.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
 <body>
-  <div class="app-shell">
-    <aside class="sidebar">
-  <div class="brand">
-        <span>Royal Chess Arena</span>
-      </div>
+<div class="app-shell">
 
-      <div class="user-block">
-        <div id="sidebar-avatar" class="avatar small">&nbsp;</div>
-        <div class="user-info">
-          <div id="sidebar-name" class="user-name">Player</div>
-          <div id="sidebar-status" class="user-status">Beginner</div>
-          <!-- user-stats: keep DOM present (hidden by CSS) so scripts that expect these IDs won't error -->
-          <div class="user-stats" aria-hidden="true">
-            <div class="user-rating">Rating: <span id="sidebar-rating">1200</span></div>
-            <div class="games-stats">Games: <span id="sidebar-games">0</span></div>
-          </div>
-          <div class="user-stars">
-            <div class="stars hidden" id="sidebar-stars">
-              <span class="star" data-index="0"></span>
-              <span class="star" data-index="1"></span>
-              <span class="star" data-index="2"></span>
-              <span class="star" data-index="3"></span>
-              <span class="star" data-index="4"></span>
-            </div>
+  <!-- ════════════════════════════════════════
+       SIDEBAR — original, untouched
+  ════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <span>Royal Chess Arena</span>
+    </div>
+
+    <div class="user-block">
+      <div id="sidebar-avatar" class="avatar small">&nbsp;</div>
+      <div class="user-info">
+        <div id="sidebar-name" class="user-name">Player</div>
+        <div id="sidebar-status" class="user-status">Beginner</div>
+        <div class="user-stats" aria-hidden="true">
+          <div class="user-rating">Rating: <span id="sidebar-rating">1200</span></div>
+          <div class="games-stats">Games: <span id="sidebar-games">0</span></div>
+        </div>
+        <div class="user-stars">
+          <div class="stars hidden" id="sidebar-stars">
+            <span class="star" data-index="0"></span>
+            <span class="star" data-index="1"></span>
+            <span class="star" data-index="2"></span>
+            <span class="star" data-index="3"></span>
+            <span class="star" data-index="4"></span>
           </div>
         </div>
-      </div>
-
-      <nav class="nav">
-        <a href="./welcome.html" class="nav-item active"><i class="fas fa-home"></i> Home</a>
-        <a href="./sidebar/html/play.html" class="nav-item"><i class="fas fa-chess"></i> Play</a>
-        <a href="./sidebar/html/puzzles.html" class="nav-item"><i class="fas fa-puzzle-piece"></i> Puzzles</a>
-        <a href="#" class="nav-item"><i class="fas fa-book-open"></i> Learn</a>
-        <a href="#" class="nav-item"><i class="fas fa-tv"></i> Watch</a>
-        <a href="#" class="nav-item"><i class="fas fa-newspaper"></i> News</a>
-        <a href="#" class="nav-item"><i class="fas fa-users"></i> Social</a>
-        <a href="#" class="nav-item"><i class="fas fa-ellipsis-h"></i> More</a>
-        <a href="#" class="nav-item highlight"><i class="fas fa-gem"></i>Memberships</a>
-      </nav>
-
-      <div class="sidebar-search">
-        <input type="search" placeholder="Search" aria-label="Search" />
-      </div>
-
-  <div class="sidebar-bottom">
-    <a href="#" id="theme-toggle" class="nav-item small"><i class="fas fa-adjust"></i> Light UI</a>
-    <a href="#" id="sidebar-collapse" class="nav-item small"><i class="fas fa-compress"></i> Collapse</a>
-    <a href="/settings" class="nav-item small"><i class="fas fa-cog"></i> Settings</a>
-    <a href="/support" class="nav-item small"><i class="fas fa-life-ring"></i> Support</a>
-    <div class="separator"></div>
-    <a href="/logout?returnTo=/sidebar/html/play.html" class="nav-item small logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
-  </div>
-    
-    </aside>
-
-    <main class="main-area">
-      <header class="topbar">
-  <div class="site-title">Royal Chess Arena</div>
-        <div class="user-area" id="user-area">
-          <div id="user-avatar" class="avatar">&nbsp;</div>
-          <div id="user-name" class="user-name">&nbsp;</div>
-          <a id="top-logout" class="btn logout-top" href="#">Log Out</a>
-        </div>
-      </header>
-
-      <section class="hero">
-        <div class="hero-banner">Play, Learn and Improve Your Game</div>
-      </section>
-
-      <section class="content">
-        <div class="stats-row">
-          <div class="stat card">Games Played<br><span id="games-played" class="stat-value">0</span></div>
-          <div class="stat card stat-rating">Rating<br><span id="rating-value" class="stat-value">1200</span></div>
-          <div class="stat card">Puzzles Solved<br><span id="puzzles-solved" class="stat-value">0</span></div>
-          <div class="stat card">Win Rate<br><span id="win-rate" class="stat-value">0%</span></div>
-        </div>
-
-        <div class="game-options">
-          <div class="option-section">
-            <h3>Quick Play</h3>
-            <div class="tiles vertical">
-              <div class="tile card preferred-time">
-                <i class="fas fa-clock"></i>
-                <span class="time-label">Play 10 min</span>
-                <span class="preferred-label">Your preferred time control</span>
-              </div>
-              <div class="tile card">
-                <i class="fas fa-random"></i>
-                <span>New Game</span>
-                <span class="subtitle">Random opponent</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="option-section">
-            <h3>Practice</h3>
-            <div class="tiles vertical">
-              <div class="tile card">
-                <i class="fas fa-robot"></i>
-                <span>Play Bots</span>
-                <span class="subtitle">Train against AI</span>
-              </div>
-              <div class="tile card">
-                <i class="fas fa-user-friends"></i>
-                <span>Play a Friend</span>
-                <span class="subtitle">Challenge someone you know</span>
-              </div>
-              <div class="tile card">
-                <i class="fas fa-puzzle-piece"></i>
-                <span>Daily Puzzles</span>
-                <span class="subtitle">Improve your tactics</span>
-              </div>
-              <div class="tile card">
-                <i class="fas fa-graduation-cap"></i>
-                <span>Learn</span>
-                <span class="subtitle">Lessons and tutorials</span>
-              </div>
-            </div>
-          </div>
-
-  <div id="status-placeholder" aria-live="polite"></div>
-  <div id="user-welcome" class="user-welcome"></div>
-      </section>
-    </main>
-  </div>
-
-  <!-- Device Conflict Modal -->
-  <div id="logout-request-modal" class="logout-request-modal hidden">
-    <div class="logout-request-content">
-      <div class="logout-request-header">
-        <i class="fas fa-exclamation-circle"></i>
-        <h2>Device Login Request</h2>
-      </div>
-      <div class="logout-request-body">
-        <p id="logout-request-message">Someone is trying to login with a different account from this device.</p>
-        <p class="logout-request-details">Do you want to accept this request and logout from your account?</p>
-      </div>
-      <div class="logout-request-actions">
-        <button id="logout-accept-btn" class="btn btn-danger">Accept & Logout</button>
-        <button id="logout-reject-btn" class="btn btn-secondary">Reject</button>
       </div>
     </div>
-  </div>
 
-  <script src="./js/home.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js" defer></script>
+    <nav class="nav">
+      <a href="./welcome.html" class="nav-item active"><i class="fas fa-home"></i> Home</a>
+      <a href="./sidebar/html/play.html" class="nav-item"><i class="fas fa-chess"></i> Play</a>
+      <a href="./sidebar/html/puzzles.html" class="nav-item"><i class="fas fa-puzzle-piece"></i> Puzzles</a>
+      <a href="#" class="nav-item"><i class="fas fa-book-open"></i> Learn</a>
+      <a href="#" class="nav-item"><i class="fas fa-tv"></i> Watch</a>
+      <a href="#" class="nav-item"><i class="fas fa-newspaper"></i> News</a>
+      <a href="#" class="nav-item"><i class="fas fa-users"></i> Social</a>
+      <a href="#" class="nav-item"><i class="fas fa-ellipsis-h"></i> More</a>
+      <a href="#" class="nav-item highlight"><i class="fas fa-gem"></i> Memberships</a>
+    </nav>
+
+    <div class="sidebar-search">
+      <input type="search" placeholder="Search" aria-label="Search" />
+    </div>
+
+    <div class="sidebar-bottom">
+      <a href="#" id="theme-toggle" class="nav-item small"><i class="fas fa-adjust"></i> Light UI</a>
+      <a href="#" id="sidebar-collapse" class="nav-item small"><i class="fas fa-compress"></i> Collapse</a>
+      <a href="/settings" class="nav-item small"><i class="fas fa-cog"></i> Settings</a>
+      <a href="/support"  class="nav-item small"><i class="fas fa-life-ring"></i> Support</a>
+      <div class="separator"></div>
+      <a href="/logout?returnTo=/sidebar/html/play.html" class="nav-item small logout">
+        <i class="fas fa-sign-out-alt"></i> Log Out
+      </a>
+    </div>
+  </aside>
+
+  <!-- ════════════════════════════════════════
+       MAIN AREA
+  ════════════════════════════════════════ -->
+  <main class="main-area">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="site-title">Royal Chess Arena</div>
+      <div class="user-area" id="user-area">
+        <div id="user-avatar" class="avatar">&nbsp;</div>
+        <div id="user-name" class="user-name">&nbsp;</div>
+        <a id="top-logout" class="btn logout-top" href="#">Log Out</a>
+      </div>
+    </header>
+
+    <!-- Session status / welcome card injected by home.js -->
+    <div id="status-placeholder" aria-live="polite"></div>
+    <div id="user-welcome"></div>
+
+    <!-- ════════════════════════════════════════
+         HERO COVER
+    ════════════════════════════════════════ -->
+    <section class="hero-cover">
+      <div class="hero-overlay"></div>
+
+      <!-- decorative board -->
+      <section class="board-section">
+      <h2 class="board-section-title">Play Online</h2>
+
+      <!-- clickable wrapper for entire board + coords -->
+      <a class="board-link" href="./sidebar/html/play.html?mode=online">
+      <div class="board-outer">
+        <!-- rank numbers left -->
+        <div class="board-coords board-coords-rank">
+          <span>8</span><span>7</span><span>6</span><span>5</span>
+          <span>4</span><span>3</span><span>2</span><span>1</span>
+        </div>
+
+        <!-- board grid — squares rendered by welcome.js -->
+        <div class="chessboard" id="chessboard"></div>
+        <i class="fas fa-globe board-globe" aria-hidden="true"></i>
+
+        <!-- rank numbers right -->
+        <div class="board-coords board-coords-rank">
+          <span>8</span><span>7</span><span>6</span><span>5</span>
+          <span>4</span><span>3</span><span>2</span><span>1</span>
+        </div>
+      </div>
+
+      <!-- file letters below -->
+      <div class="board-coords board-coords-file">
+        <span>a</span><span>b</span><span>c</span><span>d</span>
+        <span>e</span><span>f</span><span>g</span><span>h</span>
+      </div>
+      </a>
+
+    </section>
+
+
+      <div class="hero-content">
+        <h1 class="hero-title">Play Chess Online</h1>
+        <p class="hero-sub">Jump into a game right now — free, fast, no setup.</p>
+
+        <div class="hero-btns">
+          <a href="sidebar/html/play.html?mode=online" class="hbtn hbtn-online">
+            <i class="fas fa-globe"></i>
+            <span class="hbtn-main">Play Online</span>
+            <span class="hbtn-sub">vs real players</span>
+          </a>
+          <a href="sidebar/html/play.html?mode=bot" class="hbtn hbtn-bot">
+            <i class="fas fa-robot"></i>
+            <span class="hbtn-main">Play Bot</span>
+            <span class="hbtn-sub">vs computer</span>
+          </a>
+          <a href="sidebar/html/play.html?mode=passplay" class="hbtn hbtn-pass">
+            <i class="fas fa-user-friends"></i>
+            <span class="hbtn-main">Pass &amp; Play</span>
+            <span class="hbtn-sub">2 players, 1 device</span>
+          </a>
+        </div>
+      </div>
+
+      <section class="board-section">
+      <h2 class="board-section-title">Play Bot</h2>
+
+      <a class="board-link" href="./sidebar/Chess-Bots/bots.html">
+      <div class="board-outer">
+        <!-- rank numbers left -->
+        <div class="board-coords board-coords-rank">
+          <span>8</span><span>7</span><span>6</span><span>5</span>
+          <span>4</span><span>3</span><span>2</span><span>1</span>
+        </div>
+
+        <!-- board grid — squares rendered by welcome.js -->
+        <div class="chessboard" id="chessboard2"></div>
+        <!-- overlay robot icon -->
+        <i class="fas fa-robot board-bot" aria-hidden="true"></i>
+
+        <!-- rank numbers right -->
+        <div class="board-coords board-coords-rank">
+          <span>8</span><span>7</span><span>6</span><span>5</span>
+          <span>4</span><span>3</span><span>2</span><span>1</span>
+        </div>
+      </div>
+
+      <!-- file letters below -->
+      <div class="board-coords board-coords-file">
+        <span>a</span><span>b</span><span>c</span><span>d</span>
+        <span>e</span><span>f</span><span>g</span><span>h</span>
+      </div>
+      </a>
+    </section>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         STATS ROW
+    ════════════════════════════════════════ -->
+    <section class="stats-row-wrap">
+      <div class="stat-card">
+        <span class="stat-value" id="games-played">0</span>
+        <span class="stat-label">Games Played</span>
+      </div>
+      <div class="stat-card stat-rating">
+        <span class="stat-value" id="rating-value">1200</span>
+        <span class="stat-label">Rating</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value" id="puzzles-solved">0</span>
+        <span class="stat-label">Puzzles Solved</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value" id="win-rate">0%</span>
+        <span class="stat-label">Win Rate</span>
+      </div>
+    </section>
+
+
+
+    
+  </main>
+</div>
+
+<!-- Device Conflict Modal — original -->
+<div id="logout-request-modal" class="logout-request-modal hidden">
+  <div class="logout-request-content">
+    <div class="logout-request-header">
+      <i class="fas fa-exclamation-circle"></i>
+      <h2>Device Login Request</h2>
+    </div>
+    <div class="logout-request-body">
+      <p id="logout-request-message">Someone is trying to login with a different account from this device.</p>
+      <p class="logout-request-details">Do you want to accept this request and logout from your account?</p>
+    </div>
+    <div class="logout-request-actions">
+      <button id="logout-accept-btn" class="btn btn-danger">Accept &amp; Logout</button>
+      <button id="logout-reject-btn" class="btn btn-secondary">Reject</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/home.js" defer></script>
+<script src="js/welcome.js" defer></script>
 </body>
 </html>

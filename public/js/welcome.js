@@ -1,47 +1,135 @@
-// welcome.js — page-specific JS for welcome.html
-// home.js handles: session check, sidebar, topbar avatar, theme toggle, collapse, logout
+// welcome.js
+// Builds the real 8×8 chessboard and places pieces using images/chesspieces/<code>.png
+// home.js handles: session check, sidebar, topbar, theme toggle, collapse, logout — untouched.
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ── Graceful fallback if chess piece images fail to load ──
-  // Replace broken <img> pieces with a unicode fallback character
+  // ── Chess piece image path ──────────────────────────────────────────
+  // Edit this if your images live in a different folder
+  const PIECE_IMG_PATH = 'images/chesspieces/';
+
+  // Unicode fallbacks if an image fails to load
   const PIECE_UNICODE = {
-    wk: '♔', wq: '♕', wr: '♖', wb: '♗', wn: '♘', wp: '♙',
-    bk: '♚', bq: '♛', br: '♜', bb: '♝', bn: '♞', bp: '♟'
+    wk:'♔', wq:'♕', wr:'♖', wb:'♗', wn:'♘', wp:'♙',
+    bk:'♚', bq:'♛', br:'♜', bb:'♝', bn:'♞', bp:'♟'
   };
 
-  document.querySelectorAll('.piece').forEach(img => {
-    img.addEventListener('error', () => {
-      // Determine piece code from class name e.g. "piece-wk" → "wk"
-      const cls = Array.from(img.classList).find(c => c.startsWith('piece-'));
-      const code = cls ? cls.replace('piece-', '') : null;
-      if (!code) { img.style.display = 'none'; return; }
+  // ── Starting position (rank 8 → rank 1, a-file → h-file) ────────────
+  // Each entry: piece code string or null for empty square.
+  // Row 0 = rank 8 (black back rank), Row 7 = rank 1 (white back rank)
+  const START_POS = [
+    // rank 8  — black back rank
+    ['br','bn','bb','bq','bk','bb','bn','br'],
+    // rank 7  — black pawns
+    ['bp','bp','bp','bp','bp','bp','bp','bp'],
+    // rank 6
+    [null,null,null,null,null,null,null,null],
+    // rank 5
+    [null,null,null,null,null,null,null,null],
+    // rank 4
+    [null,null,null,null,null,null,null,null],
+    // rank 3
+    [null,null,null,null,null,null,null,null],
+    // rank 2  — white pawns
+    ['wp','wp','wp','wp','wp','wp','wp','wp'],
+    // rank 1  — white back rank
+    ['wr','wn','wb','wq','wk','wb','wn','wr'],
+  ];
 
-      const span = document.createElement('span');
-      span.textContent = PIECE_UNICODE[code] || '♟';
-      span.className   = img.className;           // keep positioning classes
-      span.style.cssText = [
-        'display:flex', 'align-items:center', 'justify-content:center',
-        'font-size:32px', 'line-height:1',
-        'position:absolute',
-        'filter:drop-shadow(0 2px 5px rgba(0,0,0,0.5))'
-      ].join(';');
-      // Copy inline styles (top/left/right/bottom/opacity set by CSS via class)
-      img.replaceWith(span);
-    });
-  });
+  // ── Build board ──────────────────────────────────────────────────────
+  const board = document.getElementById('chessboard');
+  if (!board) return;
 
-  // ── Pass the chosen mode to play page ──
-  // Cards already have href with ?mode=... so nothing extra needed.
-  // This block is a hook in case you want to remember the last-played mode.
-  document.querySelectorAll('.play-card').forEach(card => {
-    card.addEventListener('click', () => {
+  for (let row = 0; row < 8; row++) {
+    for (let col = 0; col < 8; col++) {
+      const sq = document.createElement('div');
+      // Classic chess.com colouring: a1 (row7,col0) is light
+      const isLight = (row + col) % 2 === 0;
+      sq.className = 'sq ' + (isLight ? 'light' : 'dark');
+
+      const code = START_POS[row][col];
+      if (code) {
+        const img = document.createElement('img');
+        img.src = PIECE_IMG_PATH + code + '.png';
+        img.alt = code;
+        img.draggable = false;
+
+        // Fallback: swap to unicode span if image fails
+        img.addEventListener('error', () => {
+          const span = document.createElement('span');
+          span.textContent = PIECE_UNICODE[code] || '?';
+          span.style.cssText =
+            'font-size:clamp(18px,4vw,40px);line-height:1;' +
+            'filter:drop-shadow(0 1px 3px rgba(0,0,0,0.5));' +
+            'user-select:none;';
+          img.replaceWith(span);
+        });
+
+        sq.appendChild(img);
+      }
+
+      board.appendChild(sq);
+    }
+  }
+
+   const board2 = document.getElementById('chessboard2');
+  if (!board2) return;
+
+  for (let row = 0; row < 8; row++) {
+    for (let col = 0; col < 8; col++) {
+      const sq = document.createElement('div');
+      // Classic chess.com colouring: a1 (row7,col0) is light
+      const isLight = (row + col) % 2 === 0;
+      sq.className = 'sq ' + (isLight ? 'light' : 'dark');
+
+      const code = START_POS[row][col];
+      if (code) {
+        const img = document.createElement('img');
+        img.src = PIECE_IMG_PATH + code + '.png';
+        img.alt = code;
+        img.draggable = false;
+
+        // Fallback: swap to unicode span if image fails
+        img.addEventListener('error', () => {
+          const span = document.createElement('span');
+          span.textContent = PIECE_UNICODE[code] || '?';
+          span.style.cssText =
+            'font-size:clamp(18px,4vw,40px);line-height:1;' +
+            'filter:drop-shadow(0 1px 3px rgba(0,0,0,0.5));' +
+            'user-select:none;';
+          img.replaceWith(span);
+        });
+
+        sq.appendChild(img);
+      }
+
+      board2.appendChild(sq);
+    }
+  }
+
+  // ── Save last-clicked play mode for buttons ──────────────────────────
+  document.querySelectorAll('.hbtn').forEach(btn => {
+    btn.addEventListener('click', () => {
       try {
-        const url   = new URL(card.href, location.href);
-        const mode  = url.searchParams.get('mode');
+        const url  = new URL(btn.href, location.href);
+        const mode = url.searchParams.get('mode');
         if (mode) localStorage.setItem('lastPlayMode', mode);
       } catch (e) { /* ignore */ }
     });
   });
+
+  // ── Boards become clickable areas as well ───────────────────────────
+  if (board) {
+    board.addEventListener('click', () => {
+      localStorage.setItem('lastPlayMode', 'online');
+      // navigation handled by enclosing anchor
+    });
+  }
+  if (board2) {
+    board2.addEventListener('click', () => {
+      localStorage.setItem('lastPlayMode', 'bot');
+      // anchor will take user to bot page
+    });
+  }
 
 });

@@ -1,14 +1,210 @@
-/* welcome.css — styles for the simplified play section only.
-   home.css handles sidebar, topbar, avatar, status messages, modal. */
+/* ═══════════════════════════════════════════════════════
+   welcome.css
+   Styles ONLY for welcome.html additions:
+     - hero cover
+     - play buttons
+     - stats row
+     - real chessboard
+   home.css handles sidebar, topbar, avatar, modal.
+═══════════════════════════════════════════════════════ */
 
-/* ── Page wrapper ── */
-.page-content {
-  padding: 24px 28px;
-  max-width: 960px;
+/* ── Override main-area so it can scroll naturally ── */
+.main-area {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
-/* ── Section title ── */
-.section-title {
+/* ════════════════════════════════════════
+   HERO COVER
+════════════════════════════════════════ */
+.hero-cover {
+  position: relative;
+  width: 100%;
+  min-height: 420px;
+  background:
+    radial-gradient(ellipse at 70% 50%, rgba(58,160,255,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 40%, rgba(108,108,255,0.14) 0%, transparent 55%),
+    var(--bg);
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* subtle board-square texture */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-conic-gradient(
+    rgba(255,255,255,0.018) 0% 25%,
+    transparent 0% 50%
+  );
+  background-size: 52px 52px;
+  pointer-events: none;
+}
+
+html.light-ui .hero-cover {
+  background:
+    radial-gradient(ellipse at 70% 50%, rgba(58,160,255,0.09) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 40%, rgba(108,108,255,0.09) 0%, transparent 55%),
+    #eef0f7;
+}
+
+/* ── Floating decorative pieces ── */
+.hero-piece {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 4px 14px rgba(0,0,0,0.5));
+}
+.hp1 { width: 90px;  bottom: 30px; left:  5%;  opacity: 0.25; transform: rotate(-10deg); }
+.hp2 { width: 110px; top:    20px; left:  12%; opacity: 0.20; transform: rotate(8deg);  }
+.hp3 { width: 70px;  bottom: 40px; left:  22%; opacity: 0.18; transform: rotate(5deg);  }
+.hp4 { width: 95px;  top:    15px; right: 10%; opacity: 0.22; transform: rotate(-6deg); }
+.hp5 { width: 75px;  bottom: 35px; right: 18%; opacity: 0.18; transform: rotate(12deg); }
+.hp6 { width: 60px;  top:    50px; right: 28%; opacity: 0.16; transform: rotate(-4deg); }
+
+/* ── Hero text + buttons ── */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.hero-title {
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 12px;
+  letter-spacing: -0.02em;
+}
+
+.hero-sub {
+  font-size: clamp(14px, 2vw, 18px);
+  color: var(--muted);
+  margin: 0 0 40px;
+}
+
+/* ── Three play buttons ── */
+.hero-btns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.hbtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1 1 calc(50% - 8px);
+  min-width: 140px;
+  max-width: 180px;
+  padding: 18px 24px;
+  border-radius: 14px;
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+.hbtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background 0.18s;
+}
+.hbtn:hover { transform: translateY(-4px); filter: brightness(1.08); }
+.hbtn:hover::before { background: rgba(255,255,255,0.04); }
+
+.hbtn i {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+.hbtn-main {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+.hbtn-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.72);
+}
+
+/* Individual button colours */
+.hbtn-online {
+  background: linear-gradient(135deg, #4f8aff, #6c6cff);
+  box-shadow: 0 6px 24px rgba(108,108,255,0.35);
+}
+.hbtn-bot {
+  background: linear-gradient(135deg, #3ecf8e, #1a9b72);
+  box-shadow: 0 6px 24px rgba(62,207,142,0.30);
+}
+.hbtn-pass {
+  background: linear-gradient(135deg, #f5a742, #e8722a);
+  box-shadow: 0 6px 24px rgba(245,167,66,0.30);
+}
+
+/* ════════════════════════════════════════
+   STATS ROW
+════════════════════════════════════════ */
+.stats-row-wrap {
+  display: flex;
+  gap: 14px;
+  padding: 20px 28px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+html.light-ui .stats-row-wrap {
+  border-bottom-color: rgba(0,0,0,0.06);
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 100px;
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 10px;
+  padding: 16px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+html.light-ui .stat-card {
+  border-color: rgba(0,0,0,0.07);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.stat-value {
+  display: block;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent-2);
+}
+.stat-label {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ════════════════════════════════════════
+   CHESSBOARD SECTION
+════════════════════════════════════════ */
+.board-section {
+  padding: 28px 28px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.board-section-title {
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -17,199 +213,214 @@
   margin: 0 0 16px 0;
 }
 
-/* ════════════════════════════════════════
-   PLAY CARDS
-════════════════════════════════════════ */
-.play-section {
-  margin-bottom: 32px;
-}
-
-.play-cards {
+/* Wrapper holds rank labels + board */
+.board-outer {
   display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0;
 }
 
-/* Base card */
-.play-card {
-  flex: 1;
-  min-width: 180px;
-  max-width: 280px;
-  border-radius: 14px;
-  overflow: hidden;
-  text-decoration: none;
+
+/* Rank/file coordinate labels */
+.board-coords {
   display: flex;
-  flex-direction: column;
-  border: 1px solid rgba(255,255,255,0.06);
-  background: var(--card);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-  cursor: pointer;
-}
-
-.play-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.45);
-  border-color: rgba(108,108,255,0.28);
-}
-
-/* Light mode borders */
-html.light-ui .play-card {
-  border-color: rgba(0,0,0,0.08);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-html.light-ui .play-card:hover {
-  border-color: rgba(79,70,229,0.3);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
-}
-
-/* ── Mini board preview area ── */
-.card-board {
-  position: relative;
-  height: 150px;
-  overflow: hidden;
-}
-
-/* Checkerboard pattern drawn with CSS gradient */
-.mini-board {
-  position: absolute;
-  inset: 0;
-  background-image:
-    repeating-conic-gradient(rgba(255,255,255,0.04) 0% 25%, transparent 0% 50%);
-  background-size: 30px 30px;
-}
-
-/* Each card gets its own accent gradient on the board */
-.play-online .card-board {
-  background: linear-gradient(135deg, #1a1f3a 0%, #111530 100%);
-}
-.play-bot .card-board {
-  background: linear-gradient(135deg, #1a2a1a 0%, #111c11 100%);
-}
-.play-pass .card-board {
-  background: linear-gradient(135deg, #2a1a1a 0%, #1c1111 100%);
-}
-
-html.light-ui .play-online .card-board { background: linear-gradient(135deg, #e8eaf8, #d4d8f5); }
-html.light-ui .play-bot .card-board    { background: linear-gradient(135deg, #e8f5ea, #d4f0d8); }
-html.light-ui .play-pass .card-board   { background: linear-gradient(135deg, #f5e8e8, #f0d8d8); }
-
-/* ── Chess piece images ── */
-.piece {
-  position: absolute;
-  width: 44px;
-  height: 44px;
-  object-fit: contain;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.55));
-  pointer-events: none;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
   user-select: none;
 }
-
-/* Play Online piece positions */
-.play-online .piece-wk { bottom: 18px; left:  22px; }
-.play-online .piece-bk { top:   14px; right: 22px; }
-.play-online .piece-wq { bottom: 22px; left:  60px; width: 38px; height: 38px; opacity: 0.9; }
-.play-online .piece-bq { top:   18px; right: 60px; width: 38px; height: 38px; opacity: 0.9; }
-.play-online .piece-wp { bottom: 32px; left:  98px; width: 30px; height: 30px; opacity: 0.7; }
-.play-online .piece-bp { top:   30px; right: 98px; width: 30px; height: 30px; opacity: 0.7; }
-
-/* Play Bot piece positions */
-.play-bot .piece-wk { bottom: 18px; left:  24px; }
-.play-bot .piece-bk { top:   14px; right: 24px; }
-.play-bot .piece-wr { bottom: 24px; left:  64px; width: 36px; height: 36px; opacity: 0.85; }
-.play-bot .piece-bn { top:   18px; right: 64px; width: 36px; height: 36px; opacity: 0.85; }
-.play-bot .piece-wb { bottom: 34px; right: 55px; width: 30px; height: 30px; opacity: 0.65; }
-.play-bot .piece-bb { top:   34px; left:  55px; width: 30px; height: 30px; opacity: 0.65; }
-
-/* Pass & Play piece positions */
-.play-pass .piece-wk { bottom: 18px; left:  24px; }
-.play-pass .piece-bk { top:   14px; right: 24px; transform: scaleX(-1); }
-.play-pass .piece-wn { bottom: 26px; left:  68px; width: 36px; height: 36px; opacity: 0.85; }
-.play-pass .piece-br { top:   22px; right: 68px; width: 34px; height: 34px; opacity: 0.85; }
-
-/* ── Card label area ── */
-.card-info {
-  padding: 14px 16px 16px;
-  display: flex;
+.board-coords-rank {
   flex-direction: column;
-  gap: 3px;
-}
-
-.card-label {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text);
-}
-
-.card-sub {
-  font-size: 12px;
-  color: var(--muted);
-}
-
-/* Accent bar at bottom of card on hover */
-.play-card::after {
-  content: '';
-  display: block;
-  height: 3px;
-  border-radius: 0 0 14px 14px;
-  transition: opacity 0.2s;
-  opacity: 0;
-}
-.play-online::after { background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
-.play-bot::after    { background: linear-gradient(90deg, #3ecf8e, #2bb5ff); }
-.play-pass::after   { background: linear-gradient(90deg, #f5c842, #f5784a); }
-
-.play-card:hover::after { opacity: 1; }
-
-/* ════════════════════════════════════════
-   STATS ROW
-════════════════════════════════════════ */
-.stats-section {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.stat-box {
-  flex: 1;
-  min-width: 100px;
-  background: var(--card);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 10px;
-  padding: 16px 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-html.light-ui .stat-box {
-  border-color: rgba(0,0,0,0.07);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-}
-
-.stat-val {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--accent-2);
-}
-
-.stat-lbl {
-  font-size: 11px;
-  color: var(--muted);
+  justify-content: space-around;
+  width: 30px;
   text-align: center;
 }
+.board-coords-rank span {
+  line-height: 1;
+}
+
+.board-coords-file {
+  flex-direction: row;
+  justify-content: space-between;
+  width: min(480px, calc(100vw - 280px - 80px));
+  margin-top: 8px;
+  margin-left: 30px;
+  padding: 0;
+}
+.board-coords-file span {
+  line-height: 1;
+  flex: 0 0 calc(12.5% - 2px);
+  text-align: center;
+}
+
+/* ── The board itself ── */
+.chessboard {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows:    repeat(8, 1fr);
+  position: relative;
+  /* Responsive: fills available width up to 480px */
+  width:  min(480px, calc(100vw - 280px - 80px));
+  height: min(480px, calc(100vw - 280px - 80px));
+  border: 2px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+  overflow: visible;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.55);
+  flex-shrink: 0;
+}
+
+html.light-ui .chessboard {
+  border-color: rgba(0,0,0,0.2);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+
+/* ── Squares ── */
+.sq {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Light square */
+.sq.light { background: #f0d9b5; }
+/* Dark square */
+.sq.dark  { background: #b58863; }
+
+html.light-ui .sq.light { background: #f0d9b5; }
+html.light-ui .sq.dark  { background: #b58863; }
+
+/* ── Piece images on board ── */
+.sq img {
+  width:  88%;
+  height: 88%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.55));
+  /* subtle entrance */
+  animation: pieceIn 0.3s ease both;
+}
+
+@keyframes pieceIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+/* ── CTA button below board ── */
+.board-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  margin-left: 22px; /* align with board */
+  padding: 12px 28px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.16s ease, filter 0.16s ease;
+  box-shadow: 0 4px 18px rgba(108,108,255,0.30);
+}
+.board-cta:hover { transform: translateY(-2px); filter: brightness(1.08); }
 
 /* ════════════════════════════════════════
    RESPONSIVE
 ════════════════════════════════════════ */
-@media (max-width: 720px) {
-  .page-content { padding: 16px; }
-  .play-cards   { flex-direction: column; }
-  .play-card    { max-width: 100%; }
-  .stats-section{ flex-wrap: wrap; }
-  .stat-box     { min-width: 40%; }
+@media (max-width: 900px) {
+  /* sidebar hidden by home.css at 900px */
+  .chessboard {
+    width:  min(480px, calc(100vw - 60px));
+    height: min(480px, calc(100vw - 60px));
+  }
+  .board-coords-file {
+    width: min(480px, calc(100vw - 60px));
+    margin-left: 30px;
+  }
+  .board-globe,
+  .board-bot {
+    font-size: 100px;
+  }
+  /* stack sections vertically on smaller screens */
+  .hero-cover {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+@media (max-width: 600px) {
+  .hero-cover      { min-height: 340px; }
+  .hero-btns       { gap: 10px; }
+  .hbtn {
+    flex: 1 1 calc(50% - 5px);
+    min-width: 110px;
+    max-width: 150px;
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+  .hbtn-main { font-size: 14px; }
+  .hbtn i { font-size: 22px; }
+  .stats-row-wrap  { padding: 16px; gap: 10px; }
+  .board-section   { padding: 16px 12px 28px; }
+  .board-coords-file {
+    width: min(380px, calc(100vw - 44px));
+    margin-left: 30px;
+    padding: 0;
+  }
+  .chessboard {
+    width:  min(380px, calc(100vw - 44px));
+    height: min(380px, calc(100vw - 44px));
+  }
+  .board-globe,
+  .board-bot {
+    font-size: 80px;
+  }
 }
 
-@media (max-width: 400px) {
-  .stat-box { min-width: 100%; }
+.board-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+.board-link .board-outer {
+  transition: transform 0.2s ease, filter 0.2s ease;
+  position: relative;
+}
+.board-link:hover .board-outer,
+.board-link:focus .board-outer {
+  filter: brightness(1.05);
+  transform: scale(1.02);
+}
+
+.board-globe {
+  position: absolute;
+  z-index: 100;
+  font-size: 120px;
+  color: var(--accent-2);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* robot overlay for second board */
+.board-bot {
+  position: absolute;
+  z-index: 100;
+  font-size: 120px;
+  color: rgb(62, 207, 142);
+  -webkit-text-stroke: 0.1px rgba(255, 255, 255, 0.3);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+html.light-ui .board-bot {
+  color: rgba(26, 155, 114, 0.5);
+}
+
+html.light-ui .board-globe {
+  color: rgba(58, 160, 255, 0.5);
 }
