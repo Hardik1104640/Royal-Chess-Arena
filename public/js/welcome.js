@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Unicode fallbacks if an image fails to load
   const PIECE_UNICODE = {
-    wk:'♔', wq:'♕', wr:'♖', wb:'♗', wn:'♘', wp:'♙',
-    bk:'♚', bq:'♛', br:'♜', bb:'♝', bn:'♞', bp:'♟'
+    wK:'♔', wQ:'♕', wR:'♖', wB:'♗', wN:'♘', wP:'♙',
+    bK:'♚', bQ:'♛', bR:'♜', bB:'♝', bN:'♞', bP:'♟'
   };
 
   // ── Starting position (rank 8 → rank 1, a-file → h-file) ────────────
