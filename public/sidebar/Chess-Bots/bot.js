@@ -22,18 +22,16 @@ const REGULAR_STYLES = [
 // Category → style text for display
 const botStyle = (b, idx) => {
     if (b.category === 'Chess GM')   return 'Chess Grandmaster';
-    if (b.category === 'Celebrity')  return 'Celebrity chess enthusiast';
     if (b.category === 'Engine')     return b.style || 'Chess engine';
     return REGULAR_STYLES[idx % REGULAR_STYLES.length];
 };
 
 // Build botsData from BOTS global (which comes from bot-data.js)
 // Falls back to empty arrays if bot-data.js hasn't loaded yet.
-const botsData = { chessFamous:[], celebrities:[], adaptive:[], beginner:[], intermediate:[], advanced:[], engines:[] };
+const botsData = { chessFamous:[], adaptive:[], beginner:[], intermediate:[], advanced:[], engines:[] };
 
 const buildBotsData = () => {
     botsData.chessFamous  = [];
-    botsData.celebrities  = [];
     botsData.adaptive     = [];
     botsData.beginner     = [];
     botsData.intermediate = [];
@@ -61,11 +59,6 @@ const buildBotsData = () => {
                 uiBot.isFamous  = true;
                 uiBot.isChessGM = true;
                 botsData.chessFamous.push(uiBot);
-                break;
-            case 'Celebrity':
-                uiBot.isFamous    = true;
-                uiBot.isCelebrity = true;
-                botsData.celebrities.push(uiBot);
                 break;
             case 'Engine':
                 uiBot.isEngine = true;
@@ -101,12 +94,53 @@ const buildBotsData = () => {
 
 buildBotsData();
 
+// Update filter button counts
+const updateFilterCounts = () => {
+    if (typeof botsData === 'undefined') return;
+    const allBots = Object.values(botsData).flat();
+    const counts = {
+        all: allBots.length,
+        beginner: allBots.filter(b => b.rating < 1000).length,
+        intermediate: allBots.filter(b => b.rating >= 1000 && b.rating < 1800).length,
+        advanced: allBots.filter(b => b.rating >= 1800 && b.rating < 2500).length,
+        master: allBots.filter(b => b.rating >= 2500).length,
+    };
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        const filter = btn.dataset.filter;
+        const countSpan = btn.querySelector('.filter-count');
+        if (countSpan) countSpan.textContent = `(${counts[filter]})`;
+    });
+};
+
+// Update page subtitle with match count
+const updatePageSubtitle = (filterLevel, searchTerm, searchRating) => {
+    const ps = document.querySelector('.page-subtitle');
+    if (!ps) return;
+    
+    let allBots = Object.values(botsData).flat();
+    if (filterLevel !== 'all') {
+        if (filterLevel === 'beginner') allBots = allBots.filter(b => b.rating < 1000);
+        if (filterLevel === 'intermediate') allBots = allBots.filter(b => b.rating >= 1000 && b.rating < 1800);
+        if (filterLevel === 'advanced') allBots = allBots.filter(b => b.rating >= 1800 && b.rating < 2500);
+        if (filterLevel === 'master') allBots = allBots.filter(b => b.rating >= 2500);
+    }
+    if (searchTerm) allBots = allBots.filter(b => b.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    if (searchRating) { const t = parseInt(searchRating); if (!isNaN(t)) allBots = allBots.filter(b => Math.abs(b.rating - t) <= 100); }
+    
+    let subtitle = `Found <strong>${allBots.length}</strong> bot${allBots.length !== 1 ? 's' : ''}`;
+    if (searchTerm) subtitle += ` matching "${searchTerm}"`;
+    if (searchRating) subtitle += ` with rating ~${searchRating}`;
+    if (filterLevel !== 'all') subtitle += ` (${filterLevel})`;
+    
+    ps.innerHTML = subtitle;
+};
+
 // ─────────────────────────────────────────────────────────────────────────────
 // DATABASE HELPERS
 // ─────────────────────────────────────────────────────────────────────────────
 const getAllBotsDatabase = () => Object.values(botsData).flat().map(b => ({
     id:b.id, name:b.name, rating:b.rating,
-    category: b.isChessGM?'Chess GM':b.isCelebrity?'Celebrity':b.isEngine?'Engine':'Regular',
+    category: b.isChessGM?'Chess GM':b.isEngine?'Engine':'Regular',
     locked:b.locked, crowns:b.crowns,
 }));
 const logAllBotsDatabase = () => {
@@ -160,7 +194,6 @@ const createBotCard = (bot) => {
     const crownsHTML = [1,2,3].map(i => `<i class="fas fa-crown crown ${bot.crowns>=i?'earned':''}"></i>`).join('');
     let badge = '';
     if      (bot.isChessGM)   badge = '<div class="famous-badge gm-badge"><i class="fas fa-chess-king"></i> GM</div>';
-    else if (bot.isCelebrity) badge = '<div class="famous-badge celeb-badge"><i class="fas fa-star"></i> Celebrity</div>';
     else if (bot.isEngine)    badge = '<div class="engine-badge"><i class="fas fa-microchip"></i> Engine</div>';
     const btnText = bot.locked ? 'Premium Only' : bot.isCustomizable ? 'Customize & Play' : 'Play';
     return `
@@ -183,7 +216,7 @@ const createBotCard = (bot) => {
 // ─────────────────────────────────────────────────────────────────────────────
 const renderBots = (filterLevel='all', searchTerm='', searchRating='') => {
     const map = {
-        'chess-famous-bots':'chessFamous', 'celebrity-bots':'celebrities',
+        'chess-famous-bots':'chessFamous',
         'engine-bots':'engines', 'adaptive-bots':'adaptive',
         'beginner-bots':'beginner', 'intermediate-bots':'intermediate', 'advanced-bots':'advanced',
     };
@@ -227,6 +260,8 @@ const renderBots = (filterLevel='all', searchTerm='', searchRating='') => {
     attachPlayButtonListeners();
     attachShowMoreListeners();
     updateStatistics();
+    updateFilterCounts();
+    updatePageSubtitle(filterLevel, searchTerm, searchRating);
 };
 
 const attachShowMoreListeners = () => {
@@ -880,6 +915,8 @@ const checkForResumedGame = () => {
 // ─────────────────────────────────────────────────────────────────────────────
 loadBotProgress();
 renderBots();
+updateFilterCounts();
+updatePageSubtitle('all', '', '');
 checkForResumedGame();
 logAllBotsDatabase();
 

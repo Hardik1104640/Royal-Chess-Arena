@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../../css/home.css">
     <link rel="stylesheet" href="./bots.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <aside class="sidebar">
@@ -110,11 +111,11 @@
                         <i class="fas fa-filter"></i> Filter by Rating
                     </label>
                     <div class="filter-buttons">
-                        <button class="filter-btn active" data-filter="all">All Bots</button>
-                        <button class="filter-btn" data-filter="beginner">Beginner (0-1000)</button>
-                        <button class="filter-btn" data-filter="intermediate">Intermediate (1000-1800)</button>
-                        <button class="filter-btn" data-filter="advanced">Advanced (1800-2500)</button>
-                        <button class="filter-btn" data-filter="master">Master (2500+)</button>
+                        <button class="filter-btn active" data-filter="all">All Bots <span class="filter-count"></span></button>
+                        <button class="filter-btn" data-filter="beginner">Beginner (0-1000) <span class="filter-count"></span></button>
+                        <button class="filter-btn" data-filter="intermediate">Intermediate (1000-1800) <span class="filter-count"></span></button>
+                        <button class="filter-btn" data-filter="advanced">Advanced (1800-2500) <span class="filter-count"></span></button>
+                        <button class="filter-btn" data-filter="master">Master (2500+) <span class="filter-count"></span></button>
                     </div>
                 </div>
                 <div class="search-bar">
@@ -141,17 +142,6 @@
                     <div class="bots-grid" id="chess-famous-bots"></div>
                 </div>
 
-                <div class="category-section featured-section celeb-section">
-                    <div class="category-header">
-                        <h2 class="category-title">
-                            <i class="fas fa-star"></i>
-                            Famous Personalities & Celebrities
-                            <span class="category-count" id="celebrity-count">(0)</span>
-                        </h2>
-                        <p class="category-description">Challenge celebrities, athletes, musicians, and historical figures</p>
-                    </div>
-                    <div class="bots-grid" id="celebrity-bots"></div>
-                </div>
 
                 <div class="category-section">
                     <div class="category-header">
