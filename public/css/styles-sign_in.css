@@ -313,6 +313,44 @@ body {
     height: 18px;
 }
 
+/* Guest Button */
+.btn.secondary {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.btn.secondary:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.guest-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: 1.5rem 0 0 0;
+    position: relative;
+}
+
+.guest-divider::before {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border);
+}
+
+.guest-divider span {
+    padding: 0 0.75rem;
+}
+
+.guest-btn {
+    white-space: nowrap;
+}
+
 /* Sign Up Prompt */
 .signup-prompt {
     text-align: center;

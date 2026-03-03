@@ -72,14 +72,31 @@
                     <button class="btn primary" type="submit">
                         <i class="fas fa-user-plus"></i> Sign up with Email
                     </button>
-                    <a class="btn secondary" href="login.html">
-                        <i class="fas fa-sign-in-alt"></i> Already have an account?
-                    </a>
                 </div>
+                <div class="guest-divider">
+                    <span>or</span>
+                </div>
+                <button type="button" class="btn secondary guest-btn" id="signup-guest-btn">
+                    <i class="fas fa-user-clock"></i> Continue as Guest
+                </button>
+                <p class="form-footer">
+                    Already have an account? 
+                    <a href="login.html">Sign in</a>
+                </p>
             </form>
         </main>
     </div>
 
+    <script src="./js/guest-account.js" defer></script>
     <script src="./js/cred.js" defer></script>
+    <script>
+        document.getElementById('signup-guest-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            if(window.GuestPool) {
+                GuestPool.assign();
+                window.location.href = 'welcome.html';
+            }
+        });
+    </script>
 </body>
 </html>

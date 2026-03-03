@@ -210,14 +210,60 @@ input:invalid {
 }
 
 .btn.secondary {
-    background: transparent;
-    border: 2px solid #2c5282;
-    color: #2c5282;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    width: 100%;
+    border: none;
+    margin-top: 1rem;
 }
 
 .btn.secondary:hover {
-    background: rgba(44, 82, 130, 0.1);
+    background: linear-gradient(135deg, #059669, #047857);
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.guest-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #718096;
+    font-size: 0.9rem;
+    margin: 1.5rem 0 0 0;
+    position: relative;
+}
+
+.guest-divider::before {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.guest-divider span {
+    padding: 0 0.75rem;
+}
+
+.guest-btn {
+    white-space: nowrap;
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #718096;
+    font-size: 0.95rem;
+}
+
+.form-footer a {
+    color: #2c5282;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.form-footer a:hover {
+    color: #1a365d;
+    text-decoration: underline;
 }
 
 /* Responsive Design */
