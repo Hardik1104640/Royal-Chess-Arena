@@ -128,32 +128,40 @@
                 </div>
             </div>
 
-            <!-- Bot Categories -->
-            <div class="bot-categories">
-                <div class="category-section featured-section">
-                    <div class="category-header">
-                        <h2 class="category-title">
-                            <i class="fas fa-chess-king"></i>
-                            Chess Grandmasters & Professionals
-                            <span class="category-count" id="chess-famous-count">(0)</span>
-                        </h2>
-                        <p class="category-description">Play against legendary chess champions and top-rated professionals</p>
+
+            <!-- Chessboard + Adaptive Bots Wrapper (Side by Side) -->
+            <div class="board-bots-wrapper">
+                <!-- Big Board on LEFT -->
+                <div class="chessboard-section">
+                    <p class="chessboard-title">Challenge a Bot</p>
+                    <div class="chessboard-container">
+                        <div id="demo-board" class="game-board"></div>
                     </div>
-                    <div class="bots-grid" id="chess-famous-bots"></div>
                 </div>
 
-
-                <div class="category-section">
+                <!-- Adaptive Bots on RIGHT (height-constrained, overflow hidden) -->
+                <div class="adaptive-bots-right-column">
                     <div class="category-header">
                         <h2 class="category-title">
                             <i class="fas fa-chart-line"></i>
                             Adaptive Bots
                             <span class="category-count" id="adaptive-count">(0)</span>
                         </h2>
-                        <p class="category-description">These bots adjust their strength during the game based on your performance</p>
+                        <p class="category-description">Adjust strength during game</p>
                     </div>
-                    <div class="bots-grid" id="adaptive-bots"></div>
+                    <div class="bots-grid bots-right-grid" id="adaptive-bots"></div>
                 </div>
+            </div>
+
+            <hr class="bots-separator" />
+
+
+            <!-- Extra Adaptive Bots (if overflow - no header) -->
+            <div class="remaining-bots-section" id="remaining-bots-container" style="display:none;">
+                <div class="bots-grid" id="remaining-adaptive-bots"></div>
+            </div>
+
+            <div class="bot-categories">
 
                 <div class="category-section">
                     <div class="category-header">
@@ -190,6 +198,19 @@
                     </div>
                     <div class="bots-grid" id="advanced-bots"></div>
                 </div>
+
+                <div class="category-section featured-section">
+                    <div class="category-header">
+                        <h2 class="category-title">
+                            <i class="fas fa-chess-king"></i>
+                            Chess Grandmasters & Professionals
+                            <span class="category-count" id="chess-famous-count">(0)</span>
+                        </h2>
+                        <p class="category-description">Play against legendary chess champions and top-rated professionals</p>
+                    </div>
+                    <div class="bots-grid" id="chess-famous-bots"></div>
+                </div>
+
 
                 <div class="category-section">
                     <div class="category-header">
@@ -258,6 +279,9 @@
                     </div>
                 </div>
             </div>
+                </div>
+
+            <!-- Bot Categories -->
         </div>
 
         <!-- Game Setup Modal -->
@@ -356,4 +380,4 @@
         });
     </script>
 </body>
-</html>
+</html>  
